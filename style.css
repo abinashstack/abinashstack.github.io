@@ -179,13 +179,23 @@ li {
   justify-content: space-between;
   gap: 1em;
   margin-bottom: 1.5em;
-  padding: 1.2em 0;
-  border-bottom: 1px solid #eee;
+  padding: 0;
 }
 
 .stat {
   text-align: center;
   flex: 1;
+  padding: 1.2em 0.8em;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.stat:hover {
+  box-shadow: 0 4px 16px rgba(0, 102, 204, 0.12);
+  transform: translateY(-2px);
 }
 
 .stat-value {
@@ -212,9 +222,16 @@ li {
 
 .skill-group {
   padding: 1em;
-  background: #f9f9f9;
+  background: #fff;
   border-radius: 8px;
   border: 1px solid #eee;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.skill-group:hover {
+  box-shadow: 0 4px 16px rgba(0, 102, 204, 0.1);
+  transform: translateY(-2px);
 }
 
 .skill-group-title {
@@ -240,19 +257,29 @@ li {
 }
 
 .skill-tag {
-  display: inline-block;
-  background: #fff;
-  border: 1px solid #ddd;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35em;
+  background: #f5f8ff;
+  border: 1px solid #e0e8f5;
   color: #333;
   font-size: 0.82em;
-  padding: 0.3em 0.7em;
+  padding: 0.35em 0.75em;
   border-radius: 4px;
-  transition: border-color 0.15s, color 0.15s;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+
+.skill-tag i {
+  font-size: 0.9em;
+  color: #0066cc;
+  width: 14px;
+  text-align: center;
 }
 
 .skill-tag:hover {
   border-color: #0066cc;
   color: #0066cc;
+  background: #eaf1ff;
 }
 
 @media (max-width: 600px) {
