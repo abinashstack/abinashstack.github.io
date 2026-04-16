@@ -1,0 +1,317 @@
+/* Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Base */
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #fff;
+  padding: 2rem 1rem;
+}
+
+/* Layout */
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Typography */
+h1 {
+  font-size: 2em;
+  font-weight: 700;
+  margin-bottom: 0.3em;
+  color: #111;
+}
+
+h2 {
+  font-size: 1.4em;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  color: #111;
+}
+
+h3 {
+  font-size: 1.15em;
+  font-weight: 600;
+  margin-top: 0;
+  margin-bottom: 0.4em;
+  color: #222;
+}
+
+p {
+  margin-bottom: 1em;
+}
+
+/* Links */
+a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Horizontal rule as thin line */
+hr {
+  border: none;
+  border-top: 1px solid #ddd;
+  margin: 2rem 0;
+}
+
+hr::before {
+  content: none;
+}
+
+/* Header */
+.header {
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+
+.header h1 {
+  margin-bottom: 0.1em;
+}
+
+.avatar {
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 0.8em;
+}
+
+.tagline {
+  color: #666;
+  font-size: 1.05em;
+  margin-bottom: 0.6em;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.4em 1.2em;
+  font-size: 0.95em;
+}
+
+/* Experience timeline */
+.timeline {
+  position: relative;
+  padding-left: 28px;
+  margin-left: 6px;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 6px;
+  bottom: 6px;
+  width: 2px;
+  background: #ddd;
+}
+
+.exp-entry {
+  position: relative;
+  margin-bottom: 1.8em;
+}
+
+.exp-entry:last-child {
+  margin-bottom: 0;
+}
+
+.exp-entry::before {
+  content: "";
+  position: absolute;
+  left: -28px;
+  top: 7px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #0066cc;
+  border: 2px solid #fff;
+  box-shadow: 0 0 0 2px #ddd;
+}
+
+.exp-entry .exp-date {
+  font-size: 0.9em;
+  font-weight: 600;
+  color: #999;
+  margin-bottom: 0.15em;
+}
+
+.exp-entry .exp-role {
+  font-weight: 600;
+  color: #111;
+  margin-bottom: 0.2em;
+}
+
+.exp-entry p {
+  margin-bottom: 0;
+  color: #444;
+}
+
+/* Lists */
+ul {
+  padding-left: 1.3em;
+  margin-bottom: 1em;
+}
+
+li {
+  margin-bottom: 0.3em;
+}
+
+/* Skills grid */
+.skills-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.skills-list li {
+  margin-bottom: 0.5em;
+}
+
+.skills-list li strong {
+  color: #111;
+}
+
+/* Blog list */
+.post-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.post-list li {
+  margin-bottom: 0.6em;
+}
+
+.post-date {
+  color: #999;
+  font-size: 0.9em;
+  margin-right: 0.5em;
+}
+
+/* Code / Pre blocks */
+code {
+  font-family: "SF Mono", "Menlo", "Consolas", "Liberation Mono", monospace;
+  font-size: 0.9em;
+  background: #f5f5f5;
+  padding: 0.15em 0.4em;
+  border-radius: 3px;
+}
+
+pre {
+  background: #f5f5f5;
+  padding: 1em;
+  overflow-x: auto;
+  border-radius: 4px;
+  margin-bottom: 1em;
+  line-height: 1.4;
+  font-size: 0.85em;
+}
+
+pre code {
+  background: none;
+  padding: 0;
+}
+
+/* Table of Contents */
+.toc {
+  background: #f9f9f9;
+  padding: 1em 1.5em;
+  border-radius: 4px;
+  margin-bottom: 2em;
+}
+
+.toc h2 {
+  margin-bottom: 0.4em;
+  font-size: 1.15em;
+}
+
+.toc ul {
+  margin-bottom: 0;
+}
+
+.toc li {
+  margin-bottom: 0.2em;
+}
+
+/* Paper entry */
+.paper {
+  margin-bottom: 2em;
+  padding-bottom: 1em;
+  border-bottom: 1px solid #eee;
+}
+
+.paper:last-child {
+  border-bottom: none;
+}
+
+.paper h3 {
+  margin-bottom: 0.2em;
+}
+
+.paper .arxiv {
+  font-size: 0.85em;
+  color: #888;
+  margin-bottom: 0.5em;
+  display: block;
+}
+
+/* Resources table-like */
+.resource {
+  margin-bottom: 0.8em;
+}
+
+.resource a {
+  font-weight: 500;
+}
+
+.stars {
+  color: #999;
+  font-size: 0.85em;
+}
+
+/* Footer */
+.footer {
+  margin-top: 1em;
+  color: #999;
+  font-size: 0.85em;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  body {
+    padding: 1.2rem 0.8rem;
+  }
+
+  h1 {
+    font-size: 1.6em;
+  }
+
+  h2 {
+    font-size: 1.25em;
+  }
+
+  .avatar {
+    width: 140px;
+    height: 140px;
+  }
+
+  pre {
+    font-size: 0.75em;
+    padding: 0.7em;
+  }
+}

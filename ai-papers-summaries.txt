@@ -1,0 +1,1005 @@
+================================================================================
+          AI RESEARCH PAPERS: PLAIN-LANGUAGE SUMMARIES WITH DIAGRAMS
+                          Complete Reference Guide
+================================================================================
+
+Table of Contents:
+1. LLM Foundations (11 papers)
+2. Reasoning & Agents (11 papers)
+3. Multimodal & Vision (12 papers)
+4. RLHF, Alignment & Fine-tuning (11 papers)
+5. RAG, Embeddings & Efficient Inference (11 papers)
+6. Code Generation & Breakthroughs (12 papers)
+
++ Interview Preparation GitHub Repos
+
+
+================================================================================
+                        CATEGORY 1: LLM FOUNDATIONS
+================================================================================
+
+--------------------------------------------------------------------------------
+1. Attention Is All You Need (2017)
+   arxiv.org/abs/1706.03762
+--------------------------------------------------------------------------------
+
+Imagine reading a book but instead of one word at a time, you see the entire
+page at once. For every word, you highlight other words most important for
+understanding it. The Transformer does this -- looks at ALL words simultaneously
+and figures out which are most related using "attention." Before this, AI read
+through a tiny keyhole, one word at a time.
+
+  OLD WAY (through a keyhole):
+     "The" --> "cat" --> "sat" --> "on" --> "the" --> "mat"
+      Each word waits for the one before. Slow!
+
+  TRANSFORMER WAY (whole page at once):
+      "The"    "cat"    "sat"    "on"    "the"    "mat"
+        |  \   / |  \   / |  \   / |  \   / |  \   / |
+        |   \ /  |   \ /  |   \ /  |   \ /  |   \ /  |
+        |    X   |    X   |    X   |    X   |    X   |
+        |   / \  |   / \  |   / \  |   / \  |   / \  |
+        v  /   \ v  /   \ v  /   \ v  /   \ v  /   \ v
+      [Every word checks every other word. All at once! Fast!]
+
+Why it matters: This single invention is the engine inside virtually every
+modern AI system.
+
+
+--------------------------------------------------------------------------------
+2. BERT (2018)
+   arxiv.org/abs/1810.04805
+--------------------------------------------------------------------------------
+
+Think of a fill-in-the-blank quiz: "The ___ chased the mouse." BERT reads in
+BOTH directions simultaneously -- it sees words before AND after the blank.
+Previous AI could only see what came before. Once BERT got good at
+fill-in-the-blank, it could be quickly taught specific jobs like spam detection.
+
+  OLD WAY: Only reads left-to-right
+      "The"  "cat"  "___"  "the"  "mouse"
+       -->    -->    ???    ||||   ||||||    (can't see these!)
+
+  BERT: Reads BOTH directions
+       ------>  ------>  ------>  ------>
+      "The"    "cat"    "[MASK]"  "the"   "mouse"
+       <------  <------  <------  <------
+      BERT guesses: "chased"  Correct!
+
+Why it matters: One AI "brain" could learn language deeply, then be quickly
+adapted to dozens of jobs.
+
+
+--------------------------------------------------------------------------------
+3. GPT-2 (2019)
+--------------------------------------------------------------------------------
+
+A child who does nothing but listen to people talk for years, predicting what
+word comes next. Nobody teaches grammar or worksheets. Over time, it can write
+essays, summarize stories, translate -- all without being taught those skills.
+Lesson: make the model bigger + more text = new abilities just appear.
+
+  TRAINING: Just predict the next word, millions of times
+      "Once upon a ___"              --> "time"
+      "The capital of France is ___" --> "Paris"
+      x 1,500,000,000 brain cells
+      x millions of web pages
+
+  RESULT: Abilities nobody taught it!
+      +------------+  +------------+  +------------+
+      | Write      |  | Summarize  |  | Translate  |
+      | stories    |  | articles   |  | languages  |
+      +------------+  +------------+  +------------+
+          All from just predicting the next word!
+
+Why it matters: Scale up a simple recipe and surprising new abilities emerge
+on their own.
+
+
+--------------------------------------------------------------------------------
+4. GPT-3 (2020)
+   arxiv.org/abs/2005.14165
+--------------------------------------------------------------------------------
+
+175 billion brain cells. Discovery: "in-context learning." Show it a few
+examples in the prompt and it figures out new tasks without retraining. Like:
+"hello->bonjour, goodbye->au revoir, thank you->?" It says "merci." Anyone
+could program AI just by talking to it.
+
+  PROMPT:
+  English: "hello"    -> French: "bonjour"    (example 1)
+  English: "goodbye"  -> French: "au revoir"  (example 2)
+  English: "thank you"-> French: ???
+
+  GPT-3: "merci"   No retraining needed!
+
+Why it matters: Teach AI new tasks just by giving examples in plain English.
+
+
+--------------------------------------------------------------------------------
+5. Scaling Laws (2020)
+   arxiv.org/abs/2001.08361
+--------------------------------------------------------------------------------
+
+Found precise mathematical formulas predicting how well a model performs based
+on size, data, and compute. Smooth, predictable curves. Turned AI development
+from guesswork into engineering.
+
+  +----------+    +----------+    +----------+
+  | MODEL    |    | TRAINING |    | COMPUTE  |
+  | SIZE     | +  | DATA     | +  | (GPUs)   |  = Predictable Quality
+  +----------+    +----------+    +----------+
+
+Why it matters: Reliable roadmap turning "How big?" from guesswork into
+solvable math.
+
+
+--------------------------------------------------------------------------------
+6. InstructGPT (2022)
+   arxiv.org/abs/2203.02155
+--------------------------------------------------------------------------------
+
+Like dog training. Humans show good examples -> humans rank outputs -> build
+scorecard (reward model) -> AI practices using the scorecard. This process
+(RLHF) is the secret sauce that turned raw GPT into ChatGPT.
+
+  Step 1: Humans show good examples
+  Step 2: Humans rank outputs -> build Reward Model
+  Step 3: Model improves using scorecard
+       +--------+  generate   +-----------+  score  +----------+
+       | GPT-3  | ---------> | REWARD    | ------> | Update   |
+       |        | <--------- | MODEL     |         | & repeat |
+       +--------+  improve   +-----------+         +----------+
+  BEFORE: "Here is a 2000-word essay about dolphins..."
+  AFTER:  "Sure! Here are 3 key facts about dolphins."
+
+Why it matters: Cracked the problem of making powerful AI obedient and
+helpful -- ancestor of ChatGPT.
+
+
+--------------------------------------------------------------------------------
+7. LLaMA (2023)
+   arxiv.org/abs/2302.13971
+--------------------------------------------------------------------------------
+
+Smaller model trained on MORE data beats model 10x its size. LLaMA-13B beat
+GPT-3-175B. Like a small kitchen that practices recipes a thousand times
+beating a giant one that practices a few times. Open for everyone.
+
+  GPT-3:  175B params x 300B tokens  = "big oven, few recipes"
+  LLaMA:   13B params x 1T+ tokens  = "small oven, TONS of practice"
+  Result:  LLaMA 13B >= GPT-3 175B on many benchmarks!
+
+Why it matters: Don't need a billion-dollar budget for top-tier AI. Open access.
+
+
+--------------------------------------------------------------------------------
+8. Llama 2 (2023)
+   arxiv.org/abs/2307.09288
+--------------------------------------------------------------------------------
+
+Improved second edition: 40% more data, longer memory, RLHF chat versions,
+published safety testing. Like giving away the car free WITH seatbelts,
+airbags, and crash-test report.
+
+Why it matters: Gold standard for releasing powerful open AI responsibly.
+
+
+--------------------------------------------------------------------------------
+9. Mixtral 8x7B (2024)
+   arxiv.org/abs/2401.04088
+--------------------------------------------------------------------------------
+
+Hospital with 8 specialist doctors. Triage nurse sends each patient to just
+2 of 8. Total 47B params, only 13B active at a time. Matches 70B models at
+fraction of cost.
+
+  Word comes in -> ROUTER picks 2 of 8 experts
+                  /                     \
+              [Expert 3]            [Expert 7]
+                  \                     /
+                   -> Combined answer
+
+  TOTAL: 47B  |  ACTIVE: 13B  |  MATCHES: ~70B models
+
+Why it matters: Smart routing of specialists is cheaper, faster, and just
+as good.
+
+
+--------------------------------------------------------------------------------
+10. DeepSeek-V2 (2024)
+    arxiv.org/abs/2405.04434
+--------------------------------------------------------------------------------
+
+Compressed conversation memory (KV cache) by 90% using shorthand that expands
+on demand. Plus 160 tiny experts (vs Mixtral's 8 big ones). Way cheaper to run.
+
+Why it matters: Slashed memory costs by ~93%, making powerful AI affordable
+at scale.
+
+
+--------------------------------------------------------------------------------
+11. DeepSeek-R1 (2025)
+    arxiv.org/abs/2501.12948
+--------------------------------------------------------------------------------
+
+No textbook, no tutor -- just "right/wrong" feedback. Through pure RL, the
+model spontaneously started checking its own work. Matches OpenAI o1.
+Open source.
+
+  Traditional:  Human writes steps -> AI copies
+  DeepSeek-R1:  AI tries -> Right/Wrong -> repeat millions of times
+  EMERGED ON ITS OWN: step-by-step thinking, self-checking, reconsideration
+
+Why it matters: AI can learn to reason and self-correct through practice alone.
+
+
+================================================================================
+                      CATEGORY 2: REASONING & AGENTS
+================================================================================
+
+--------------------------------------------------------------------------------
+1. Chain-of-Thought Prompting (2022)
+   arxiv.org/abs/2201.11903
+--------------------------------------------------------------------------------
+
+Show a kid how to solve a math problem by writing out each step, they copy the
+pattern. Same with AI -- show it examples with thinking written out, and it
+stops skipping steps.
+
+  WITHOUT CoT:  [Question] -------> [Answer] (often wrong!)
+  WITH CoT:     [Question]
+                    |
+                [Step 1: First, I notice...]
+                    |
+                [Step 2: That means...]
+                    |
+                [Step 3: So I calculate...]
+                    |
+                [Answer] (much better!)
+
+Why it matters: Simply asking AI to "show its work" dramatically improves
+accuracy.
+
+
+--------------------------------------------------------------------------------
+2. Self-Consistency (2022)
+   arxiv.org/abs/2203.11171
+--------------------------------------------------------------------------------
+
+Ask AI the same question multiple times with different reasoning paths, pick
+the answer that comes up most often. Like asking 10 friends independently and
+going with the majority.
+
+                    [Same Question]
+                   /    |    |    \
+                  v     v    v     v
+              [Path A][Path B][Path C][Path D]
+                 |      |      |       |
+                (42)   (42)   (37)    (42)
+                  \     |      |      /
+                  VOTE: 42 wins! (3/4 agree)
+
+Why it matters: Majority vote catches mistakes a single attempt would miss.
+
+
+--------------------------------------------------------------------------------
+3. Tree of Thoughts (2023)
+   arxiv.org/abs/2305.10601
+--------------------------------------------------------------------------------
+
+Chess player thinking: explore multiple paths, evaluate each, backtrack from
+dead ends. Instead of one chain, AI branches like a tree.
+
+                     [Problem]
+                    /    |    \
+                [Idea A][Idea B][Idea C]
+                /    \     |       |
+            [A1]   [A2]  [B1]   [C1]
+            Good!   XX   Good!   XX     (XX = dead end)
+             |             |
+           *BEST*       (backup)
+
+Why it matters: Explore, evaluate, and backtrack lets AI solve creative puzzles.
+
+
+--------------------------------------------------------------------------------
+4. Scaling Test-Time Compute (2024)
+   arxiv.org/abs/2408.03314
+--------------------------------------------------------------------------------
+
+Two ways to improve: (1) bigger brain (expensive), (2) more thinking time on
+test day (cheaper). A smaller AI that thinks longer can beat a larger model
+that answers quickly.
+
+Why it matters: Better answers by spending compute at question time, not just
+training time.
+
+
+--------------------------------------------------------------------------------
+5. ReAct (2022)
+   arxiv.org/abs/2210.03629
+--------------------------------------------------------------------------------
+
+Detective solving a mystery: think ("victim was at docks"), act (go to docks),
+observe (find receipt), think again. AI alternates between reasoning and taking
+real actions.
+
+    THOUGHT --> ACTION --> OBSERVE
+    "I need     [Search]    "Result:
+     to find"   "Einstein    Born 1879"
+                 birth"
+         ^                      |
+         +----------------------+
+         v
+    THOUGHT --> ACTION --> OBSERVE --> FINAL ANSWER
+
+Why it matters: Combining thinking with real actions grounds AI in facts
+instead of guessing.
+
+
+--------------------------------------------------------------------------------
+6. Toolformer (2023)
+   arxiv.org/abs/2302.04761
+--------------------------------------------------------------------------------
+
+Student discovers calculators, search engines on their own through trial and
+error. AI taught itself which tools help and when -- no rules programmed.
+
+Why it matters: AI figures out tool use on its own.
+
+
+--------------------------------------------------------------------------------
+7. Voyager (2023)
+   arxiv.org/abs/2305.16291
+--------------------------------------------------------------------------------
+
+Minecraft player with a recipe book. Learns skills, saves them, builds on them
+forever. Like a player who writes down every trick they learn.
+
+Why it matters: AI that builds a growing library of reusable skills -- endless
+learning.
+
+
+--------------------------------------------------------------------------------
+8. Generative Agents (2023)
+   arxiv.org/abs/2304.03442
+--------------------------------------------------------------------------------
+
+25 AI characters in a virtual town, each with memories. They plan their day,
+form relationships, organize events -- all emergently. Like The Sims powered
+by ChatGPT.
+
+Why it matters: Give AI memory + reflection + planning = believable society
+emerges.
+
+
+--------------------------------------------------------------------------------
+9. AutoGen (2023)
+   arxiv.org/abs/2308.08155
+--------------------------------------------------------------------------------
+
+Team building a house: plumber, electrician, carpenter, painter, foreman.
+AutoGen lets you build AI teams the same way. Agents pass messages like
+coworkers.
+
+Why it matters: Assemble specialized AI agents that collaborate like human
+coworkers.
+
+
+--------------------------------------------------------------------------------
+10. LLM Autonomous Agents Survey (2023)
+    arxiv.org/abs/2308.11432
+--------------------------------------------------------------------------------
+
+Encyclopedia of every AI agent design: brain (LLM), memory (experiences),
+hands (tools). The field guide to the whole landscape.
+
+Why it matters: The single best map of the AI agents territory.
+
+
+--------------------------------------------------------------------------------
+11. SWE-agent (2024)
+    arxiv.org/abs/2405.15793
+--------------------------------------------------------------------------------
+
+Brilliant plumber dropped in a huge building with no map vs. one with a floor
+plan and labels. Interface design matters as much as intelligence. Custom
+workspace -> AI fixed 12.5% of real GitHub bugs.
+
+  BAD: Raw terminal -> AI lost -> 0% fixed
+  GOOD: Custom interface (search, view, edit, test) -> 12.5% fixed
+  LESSON: Good tools >= raw brainpower
+
+Why it matters: Workspace design matters as much as how smart the AI is.
+
+
+================================================================================
+                     CATEGORY 3: MULTIMODAL & VISION
+================================================================================
+
+--------------------------------------------------------------------------------
+1. CLIP (2021)
+   arxiv.org/abs/2103.00020
+--------------------------------------------------------------------------------
+
+Child who grew up with 400M picture books. Matches images with text
+descriptions. Can recognize things nobody trained it on, just by text.
+
+  [Photo of dog]        "A golden retriever in a park"
+       |                          |
+   IMAGE ENCODER           TEXT ENCODER
+       |                          |
+   [vector] <-- MATCH? --> [vector]
+
+Why it matters: Understand images through language -- recognize anything you
+can describe.
+
+
+--------------------------------------------------------------------------------
+2. Flamingo (2022)
+   arxiv.org/abs/2204.14198
+--------------------------------------------------------------------------------
+
+Show 3-4 examples of "image + question + answer" and it figures out new
+images. Quick learner from few examples.
+
+Why it matters: Learn new visual tasks from just a handful of examples.
+
+
+--------------------------------------------------------------------------------
+3. LLaVA (2023)
+   arxiv.org/abs/2304.08485
+--------------------------------------------------------------------------------
+
+Connected "seeing" AI (CLIP) to "talking" AI (LLaMA) with a bridge.
+Open-source multimodal assistant.
+
+Why it matters: Build see-and-talk AI by connecting existing parts with a
+thin bridge.
+
+
+--------------------------------------------------------------------------------
+4. GPT-4V (2023)
+   arxiv.org/abs/2303.08774
+--------------------------------------------------------------------------------
+
+The smartest person you know suddenly gets perfect eyesight. Understands
+photos, charts, memes, handwriting. Passed the bar exam.
+
+Why it matters: First AI millions could use to discuss anything they can
+photograph.
+
+
+--------------------------------------------------------------------------------
+5. Segment Anything / SAM (2023)
+   arxiv.org/abs/2304.02643
+--------------------------------------------------------------------------------
+
+Magic scissors for images. Point at any object, it outlines it perfectly.
+Trained on 1 billion masks.
+
+Why it matters: Instantly cut out any object from any photo.
+
+
+--------------------------------------------------------------------------------
+6. DDPM (2020)
+   arxiv.org/abs/2006.11239
+--------------------------------------------------------------------------------
+
+Start with painting, gradually add noise until pure static. Train AI to
+reverse: turn static back into image step by step. Foundation of ALL modern
+image generators.
+
+  FORWARD:  [Clean] --> [Fuzzy] --> [Very noisy] --> [Pure static]
+  REVERSE:  [Static] --> [Vague] --> [Almost clear] --> [Clean!]
+
+Why it matters: The engine inside every major AI image generator.
+
+
+--------------------------------------------------------------------------------
+7. Latent Diffusion / Stable Diffusion (2021)
+   arxiv.org/abs/2112.10752
+--------------------------------------------------------------------------------
+
+Compress image to tiny version, do creative work there, decompress back. Same
+quality, way faster. Made AI art accessible on regular laptops.
+
+Why it matters: AI art generation fast and cheap enough for regular laptops.
+
+
+--------------------------------------------------------------------------------
+8. DALL-E 2 (2022)
+   arxiv.org/abs/2204.06125
+--------------------------------------------------------------------------------
+
+Type words -> CLIP understands concept -> diffusion paints it. Brought AI art
+to mainstream public.
+
+Why it matters: AI-generated art went mainstream.
+
+
+--------------------------------------------------------------------------------
+9. Imagen (2022)
+   arxiv.org/abs/2205.11487
+--------------------------------------------------------------------------------
+
+Making TEXT understanding bigger matters more than making IMAGE part bigger.
+Better listening > better painting.
+
+Why it matters: Key to better AI art is better listening, not better painting.
+
+
+--------------------------------------------------------------------------------
+10. Stable Diffusion 3 / MMDiT (2024)
+    arxiv.org/abs/2403.03206
+--------------------------------------------------------------------------------
+
+Text and image flow through SAME network, constantly influencing each other.
+Finally solved AI being terrible at text in images.
+
+Why it matters: Solved the problem of AI art being terrible at spelling words
+in images.
+
+
+--------------------------------------------------------------------------------
+11. InternVL (2023)
+    arxiv.org/abs/2312.14238
+--------------------------------------------------------------------------------
+
+Scaled vision encoder to 6B params. Great eyes matter as much as great brain.
+
+Why it matters: AI's "eyes" as important as its "brain."
+
+
+--------------------------------------------------------------------------------
+12. Sora (2024)
+    openai.com/index/video-generation-models-as-world-simulators/
+--------------------------------------------------------------------------------
+
+Generates 1-minute videos from text. Understands physics, 3D, camera movement.
+"World simulator."
+
+Why it matters: Leap from still images to coherent, physics-aware video.
+
+
+================================================================================
+                CATEGORY 4: RLHF, ALIGNMENT & FINE-TUNING
+================================================================================
+
+--------------------------------------------------------------------------------
+1. Fine-Tuning LMs from Human Preferences (2019)
+   arxiv.org/abs/1909.08593
+--------------------------------------------------------------------------------
+
+Like training a dog: try, get feedback, build auto-judge, practice. The
+original recipe behind ChatGPT.
+
+Why it matters: Foundational recipe for teaching AI what humans want.
+
+
+--------------------------------------------------------------------------------
+2. LoRA (2021)
+   arxiv.org/abs/2106.09685
+--------------------------------------------------------------------------------
+
+Freeze the piano, clip on a tiny attachment. 10,000x fewer trainable params,
+same performance.
+
+  Traditional: Change ALL billions of settings -> $$$, days
+  LoRA:        Freeze + tiny adapters          -> $, hours
+  Result:      Both equally good!
+
+Why it matters: Affordable AI customization for anyone.
+
+
+--------------------------------------------------------------------------------
+3. Prefix-Tuning (2021)
+   arxiv.org/abs/2101.00190
+--------------------------------------------------------------------------------
+
+Sticky notes on a textbook. 0.1% of parameters updated, steers the whole
+model.
+
+Why it matters: Steer a giant AI with absurdly small changes.
+
+
+--------------------------------------------------------------------------------
+4. Constitutional AI (2022)
+   arxiv.org/abs/2212.08073
+--------------------------------------------------------------------------------
+
+Give AI a list of rules ("constitution"), let it self-check and revise.
+Automates safety.
+
+Why it matters: AI learns safety at scale without human reviewing every
+response.
+
+
+--------------------------------------------------------------------------------
+5. Reward Model Overoptimization (2022)
+   arxiv.org/abs/2210.10760
+--------------------------------------------------------------------------------
+
+Student games the test: score goes up, knowledge goes down. Same with AI.
+Goodhart's Law.
+
+Why it matters: Blindly maximizing scores can make AI worse.
+
+
+--------------------------------------------------------------------------------
+6. DPO (2023)
+   arxiv.org/abs/2305.18290
+--------------------------------------------------------------------------------
+
+Old: 3 complex steps. DPO: show "good vs bad" pairs + simple formula. No
+reward model, no RL.
+
+  OLD (RLHF): 3 steps, 4+ models, HIGH complexity -> Good
+  NEW (DPO):  1 step, 1 model, LOW complexity     -> Equally good!
+
+Why it matters: Preference training accessible to everyone.
+
+
+--------------------------------------------------------------------------------
+7. QLoRA (2023)
+   arxiv.org/abs/2305.14314
+--------------------------------------------------------------------------------
+
+Compress model to 4-bit + attach LoRA. Fine-tune 65B on single consumer GPU.
+
+Why it matters: Powerful AI customization on hobbyist hardware.
+
+
+--------------------------------------------------------------------------------
+8. Representation Engineering (2023)
+   arxiv.org/abs/2310.01405
+--------------------------------------------------------------------------------
+
+Found "volume knobs" inside AI for honesty, morality, power-seeking. Read and
+adjust at runtime.
+
+Why it matters: Control AI behavior through internal "personality dials."
+
+
+--------------------------------------------------------------------------------
+9. SPIN (2024)
+   arxiv.org/abs/2401.01335
+--------------------------------------------------------------------------------
+
+Painter compares work to masterpiece, improves each round. Self-competition
+without human feedback.
+
+Why it matters: AI self-improves through self-competition.
+
+
+--------------------------------------------------------------------------------
+10. KTO (2024)
+    arxiv.org/abs/2402.01306
+--------------------------------------------------------------------------------
+
+Only needs thumbs up/down (not pairs). Based on psychology: losses hurt 2x
+more than gains.
+
+Why it matters: Much cheaper data collection for alignment.
+
+
+--------------------------------------------------------------------------------
+11. ORPO (2024)
+    arxiv.org/abs/2403.07691
+--------------------------------------------------------------------------------
+
+Merge language training and preference training into ONE step. Half the time,
+half the compute.
+
+Why it matters: Cuts training pipeline nearly in half.
+
+
+================================================================================
+            CATEGORY 5: RAG, EMBEDDINGS & EFFICIENT INFERENCE
+================================================================================
+
+--------------------------------------------------------------------------------
+1. REALM (2020)
+   arxiv.org/abs/2002.08909
+--------------------------------------------------------------------------------
+
+Student + librarian learn together. Librarian finds pages, student reads them,
+both improve.
+
+Why it matters: AI that looks things up while learning = smarter, more factual.
+
+
+--------------------------------------------------------------------------------
+2. RAG (2020)
+   arxiv.org/abs/2005.11401
+--------------------------------------------------------------------------------
+
+Open-book exam. AI searches textbook first, writes answer using those pages.
+
+Why it matters: Answers backed by sources, reduces "making things up."
+
+
+--------------------------------------------------------------------------------
+3. Dense Passage Retrieval (2020)
+   arxiv.org/abs/2004.04906
+--------------------------------------------------------------------------------
+
+Every passage gets a meaning fingerprint. Find closest match by meaning, not
+exact words.
+
+Why it matters: Search by meaning, not keywords -- dramatically more accurate.
+
+
+--------------------------------------------------------------------------------
+4. Sentence-BERT (2019)
+   arxiv.org/abs/1908.10084
+--------------------------------------------------------------------------------
+
+Comparing 10,000 sentences: 65 hours before, 5 seconds after. Permanent
+"vibe codes."
+
+Why it matters: Compare millions of sentences instantly.
+
+
+--------------------------------------------------------------------------------
+5. Matryoshka Representation Learning (2022)
+   arxiv.org/abs/2205.13147
+--------------------------------------------------------------------------------
+
+Russian nesting dolls: first 64 dims are decent, 128 better, 256 great. One
+model, many sizes.
+
+Why it matters: One model at different quality/speed levels.
+
+
+--------------------------------------------------------------------------------
+6. GPTQ (2022)
+   arxiv.org/abs/2210.17323
+--------------------------------------------------------------------------------
+
+Repaint a million-color painting with 8-16 colors using clever math. 175B
+model: 350GB -> 80GB.
+
+Why it matters: Massive AI models on ordinary people's computers.
+
+
+--------------------------------------------------------------------------------
+7. AWQ (2023)
+   arxiv.org/abs/2306.00978
+--------------------------------------------------------------------------------
+
+Only 1% of weights really matter. Protect those VIPs, compress rest
+aggressively. Better than GPTQ.
+
+Why it matters: Smart compression knows what matters most.
+
+
+--------------------------------------------------------------------------------
+8. Speculative Decoding (2022)
+   arxiv.org/abs/2211.17192
+--------------------------------------------------------------------------------
+
+Fast intern drafts words, boss checks all at once. 2-3x faster, mathematically
+identical output.
+
+  WITHOUT: Boss writes one word at a time -> 4 seconds
+  WITH:    Intern drafts 4 words (0.2s) -> Boss checks all (1s) -> 1.2s!
+           Same exact output! 2-3x faster!
+
+Why it matters: 2-3x faster with zero quality loss -- a rare "free lunch."
+
+
+--------------------------------------------------------------------------------
+9. Speculative Sampling (2023)
+   arxiv.org/abs/2302.01318
+--------------------------------------------------------------------------------
+
+Same idea, discovered independently by DeepMind. Adds rigorous mathematical
+PROOF of correctness.
+
+Why it matters: Mathematical guarantee that output is provably identical.
+
+
+--------------------------------------------------------------------------------
+10. Switch Transformers (2021)
+    arxiv.org/abs/2101.03961
+--------------------------------------------------------------------------------
+
+Hospital with 100 specialists. Receptionist sends each patient to ONE relevant
+specialist. 1 trillion params but each word uses ~1/100th.
+
+Why it matters: Enormously knowledgeable models that stay efficient.
+
+
+--------------------------------------------------------------------------------
+11. DeepSeek-V2 (2024)
+    arxiv.org/abs/2405.04434
+--------------------------------------------------------------------------------
+
+Compressed conversation memory by 93%. Shorthand that expands on demand. 160
+fine-grained experts.
+
+Why it matters: Powerful AI affordable to serve to millions.
+
+
+================================================================================
+                 CATEGORY 6: CODE GENERATION & BREAKTHROUGHS
+================================================================================
+
+--------------------------------------------------------------------------------
+1. Codex (2021)
+   arxiv.org/abs/2107.03374
+--------------------------------------------------------------------------------
+
+GPT trained on code. Powers GitHub Copilot. 29% first try, 70% with 100
+guesses.
+
+Why it matters: First practical AI co-pilot for programmers.
+
+
+--------------------------------------------------------------------------------
+2. AlphaCode (2022)
+   arxiv.org/abs/2203.13474
+--------------------------------------------------------------------------------
+
+Programming contest AI. Generates 1M solutions, filters to 10. Top 54% of
+human competitors.
+
+Why it matters: AI competes with humans on hard reasoning problems.
+
+
+--------------------------------------------------------------------------------
+3. StarCoder (2023)
+   arxiv.org/abs/2305.06161
+--------------------------------------------------------------------------------
+
+Open-source code AI on ethically sourced code. 80+ languages. Matches
+proprietary models.
+
+Why it matters: Democratized AI coding with ethical open-source model.
+
+
+--------------------------------------------------------------------------------
+4. SWE-bench (2023)
+   arxiv.org/abs/2310.06770
+--------------------------------------------------------------------------------
+
+2,294 REAL bugs from real GitHub projects. GPT-4 solved <5%.
+
+Why it matters: Exposed gap between "can write code" and "can fix real
+software."
+
+
+--------------------------------------------------------------------------------
+5. DeepSeek-Coder (2024)
+   arxiv.org/abs/2401.14196
+--------------------------------------------------------------------------------
+
+Open-source code models (1.3B-33B), 2 trillion tokens. 33B rivals
+GPT-3.5-Turbo.
+
+Why it matters: Free models compete with expensive commercial AI.
+
+
+--------------------------------------------------------------------------------
+6. SWE-agent (2024)
+   arxiv.org/abs/2405.15793
+--------------------------------------------------------------------------------
+
+Custom workspace for AI: search, view, edit, test commands. Interface
+design = intelligence.
+
+Why it matters: Right workspace design is as critical as AI intelligence.
+
+
+--------------------------------------------------------------------------------
+7. Agentless (2024)
+   arxiv.org/abs/2407.01489
+--------------------------------------------------------------------------------
+
+Just: (1) find the bug, (2) fix it. Two steps. Matched complex agents at
+27.3%.
+
+Why it matters: Simplicity can match complexity.
+
+
+--------------------------------------------------------------------------------
+8. OpenHands (2024)
+   arxiv.org/abs/2407.16741
+--------------------------------------------------------------------------------
+
+Virtual office where any AI can work like a human developer. Open source
+sandbox.
+
+Why it matters: Shared free workshop for building AI developers.
+
+
+--------------------------------------------------------------------------------
+9. Qwen2.5-Coder (2024)
+   arxiv.org/abs/2409.12186
+--------------------------------------------------------------------------------
+
+0.5B to 32B models. Top model rivals GPT-4o on coding. All free.
+
+Why it matters: Free models rival best commercial coding AI.
+
+
+--------------------------------------------------------------------------------
+10. SCoRe (2024)
+    arxiv.org/abs/2409.12917
+--------------------------------------------------------------------------------
+
+Taught AI genuine self-correction. Rewarded for IMPROVING on second try.
++15.6% on math.
+
+Why it matters: First evidence of genuine AI self-correction.
+
+
+--------------------------------------------------------------------------------
+11. Design2Code (2024)
+    arxiv.org/abs/2403.03163
+--------------------------------------------------------------------------------
+
+Screenshot -> working HTML/CSS. Rated equal or better than original 49% of
+the time.
+
+Why it matters: Website design as simple as showing a screenshot.
+
+
+--------------------------------------------------------------------------------
+12. DeepSeek-R1 (2025)
+    arxiv.org/abs/2501.12948
+--------------------------------------------------------------------------------
+
+No examples of how to think. Just right/wrong feedback. Independently invented
+reasoning, self-checking, reconsideration. Matches o1, open-source.
+
+Why it matters: AI can discover how to think on its own.
+
+
+================================================================================
+                      INTERVIEW PREPARATION REPOS
+================================================================================
+
+General Coding / DSA:
+  - github.com/jwasham/coding-interview-university (~341k stars)
+  - github.com/trekhleb/javascript-algorithms (~196k stars)
+  - github.com/TheAlgorithms/Python (~220k stars)
+  - github.com/labuladong/fucking-algorithm (~133k stars)
+  - github.com/kdn251/interviews (~65k stars)
+  - github.com/azl397985856/leetcode (~56k stars)
+
+System Design:
+  - github.com/donnemartin/system-design-primer (~343k stars)
+  - github.com/ByteByteGoHq/system-design-101 (~82k stars)
+  - github.com/binhnguyennus/awesome-scalability (~70k stars)
+  - github.com/karanpratapsingh/system-design (~43k stars)
+  - github.com/ashishps1/awesome-system-design-resources (~36k stars)
+
+Frontend / JavaScript:
+  - github.com/lydiahallie/javascript-questions (~65k stars)
+  - github.com/h5bp/Front-end-Developer-Interview-Questions (~61k stars)
+  - github.com/sudheerj/reactjs-interview-questions (~44k stars)
+  - github.com/yangshun/front-end-interview-handbook (~44k stars)
+
+Backend / Java:
+  - github.com/Snailclimb/JavaGuide (~155k stars)
+  - github.com/iluwatar/java-design-patterns (~94k stars)
+  - github.com/doocs/advanced-java (~79k stars)
+  - github.com/kunal-kushwaha/DSA-Bootcamp-Java (~22k stars)
+
+Comprehensive Guides:
+  - github.com/yangshun/tech-interview-handbook (~139k stars)
+  - github.com/DopplerHQ/awesome-interview-questions (~82k stars)
+  - github.com/bregman-arie/devops-exercises (~82k stars)
+  - github.com/CyC2018/CS-Notes (~184k stars)
+
+Behavioral:
+  - github.com/ashishps1/awesome-behavioral-interviews (~8k stars)
+
+
+================================================================================
+Generated on April 16, 2026
+Total: ~65 unique papers across 6 categories + 25 interview prep repos
+================================================================================

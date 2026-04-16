@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Research Papers - Abinash Gogoi</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+  <p><a href="index.html">&larr; Home</a></p>
+  <h1>AI Research Papers</h1>
+  <p>~65 influential papers summarized in plain language with ASCII diagrams.</p>
+
+  <div class="toc">
+    <h2>Table of Contents</h2>
+    <ul>
+      <li><a href="#llm">1. LLM Foundations (11)</a></li>
+      <li><a href="#reasoning">2. Reasoning &amp; Agents (11)</a></li>
+      <li><a href="#multimodal">3. Multimodal &amp; Vision (12)</a></li>
+      <li><a href="#alignment">4. RLHF, Alignment &amp; Fine-tuning (11)</a></li>
+      <li><a href="#rag">5. RAG, Embeddings &amp; Efficient Inference (11)</a></li>
+      <li><a href="#codegen">6. Code Generation &amp; Breakthroughs (12)</a></li>
+    </ul>
+  </div>
+  <hr>
+
+  <h2 id="llm">1. LLM Foundations</h2>
+  <div class="paper">
+    <h3>Attention Is All You Need (2017)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/1706.03762">https://arxiv.org/abs/1706.03762</a>
+    <p>Imagine reading a book but instead of one word at a time, you see the entire page at once. For every word, you highlight other words most important for understanding it. The Transformer does this — looks at ALL words simultaneously and figures out which are most related. Before this, AI read through a tiny keyhole, one word at a time.</p>
+    <pre><code>  OLD WAY (through a keyhole):
+     &quot;The&quot; --&gt; &quot;cat&quot; --&gt; &quot;sat&quot; --&gt; &quot;on&quot; --&gt; &quot;the&quot; --&gt; &quot;mat&quot;
+      Each word waits for the one before. Slow!
+
+  TRANSFORMER WAY (whole page at once):
+      &quot;The&quot;    &quot;cat&quot;    &quot;sat&quot;    &quot;on&quot;    &quot;the&quot;    &quot;mat&quot;
+        |  \   / |  \   / |  \   / |  \   / |  \   / |
+        |   \ /  |   \ /  |   \ /  |   \ /  |   \ /  |
+        |    X   |    X   |    X   |    X   |    X   |
+        |   / \  |   / \  |   / \  |   / \  |   / \  |
+        v  /   \ v  /   \ v  /   \ v  /   \ v  /   \ v
+      [Every word checks every other word. All at once!]</code></pre>
+    <p><strong>Why it matters:</strong> This single invention is the engine inside virtually every modern AI system.</p>
+  </div>
+  <div class="paper">
+    <h3>BERT (2018)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/1810.04805">https://arxiv.org/abs/1810.04805</a>
+    <p>Fill-in-the-blank quiz: &#x27;The ___ chased the mouse.&#x27; BERT reads in BOTH directions — it sees words before AND after the blank. Previous AI could only see what came before. Once it got good at fill-in-the-blank, it could be taught specific jobs like spam detection.</p>
+    <pre><code>  OLD WAY: Only reads left-to-right
+      &quot;The&quot;  &quot;cat&quot;  &quot;___&quot;  &quot;the&quot;  &quot;mouse&quot;
+       --&gt;    --&gt;    ???    ||||   ||||||    (can&#x27;t see!)
+
+  BERT: Reads BOTH directions
+       ------&gt;  ------&gt;  ------&gt;  ------&gt;
+      &quot;The&quot;    &quot;cat&quot;    &quot;[MASK]&quot;  &quot;the&quot;   &quot;mouse&quot;
+       &lt;------  &lt;------  &lt;------  &lt;------
+      BERT guesses: &quot;chased&quot;  Correct!</code></pre>
+    <p><strong>Why it matters:</strong> One AI brain could learn language deeply, then be quickly adapted to dozens of jobs.</p>
+  </div>
+  <div class="paper">
+    <h3>GPT-2 (2019)</h3>
+    <p>A child who does nothing but predict the next word in conversations for years. Nobody teaches grammar. Over time, it can write essays, summarize stories, translate — without being taught. Lesson: make the model bigger + more text = new abilities just appear.</p>
+    <pre><code>  TRAINING: Just predict the next word, millions of times
+      &quot;Once upon a ___&quot;              --&gt; &quot;time&quot;
+      &quot;The capital of France is ___&quot; --&gt; &quot;Paris&quot;
+      x 1,500,000,000 brain cells
+
+  RESULT: Abilities nobody taught it!
+      [Write stories] [Summarize articles] [Translate]
+      All from just predicting the next word!</code></pre>
+    <p><strong>Why it matters:</strong> Scale up a simple recipe and surprising new abilities emerge on their own.</p>
+  </div>
+  <div class="paper">
+    <h3>GPT-3 (2020)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2005.14165">https://arxiv.org/abs/2005.14165</a>
+    <p>175 billion brain cells. Discovery: &#x27;in-context learning.&#x27; Show it a few examples in the prompt and it figures out new tasks without retraining. Anyone could program AI just by talking to it.</p>
+    <pre><code>  PROMPT:
+  English: &quot;hello&quot;    -&gt; French: &quot;bonjour&quot;    (example 1)
+  English: &quot;goodbye&quot;  -&gt; French: &quot;au revoir&quot;  (example 2)
+  English: &quot;thank you&quot;-&gt; French: ???
+
+  GPT-3: &quot;merci&quot;   No retraining needed!</code></pre>
+    <p><strong>Why it matters:</strong> Teach AI new tasks just by giving examples in plain English.</p>
+  </div>
+  <div class="paper">
+    <h3>Scaling Laws (2020)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2001.08361">https://arxiv.org/abs/2001.08361</a>
+    <p>Found precise mathematical formulas predicting model performance based on size, data, and compute. Smooth, predictable curves. Turned AI from guesswork into engineering.</p>
+    <pre><code>  +----------+    +----------+    +----------+
+  | MODEL    |    | TRAINING |    | COMPUTE  |
+  | SIZE     | +  | DATA     | +  | (GPUs)   | = Predictable Quality
+  +----------+    +----------+    +----------+
+  [ Precise formula tells you exactly what to expect! ]</code></pre>
+    <p><strong>Why it matters:</strong> Reliable roadmap — &#x27;How big?&#x27; became solvable math.</p>
+  </div>
+  <div class="paper">
+    <h3>InstructGPT (2022)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2203.02155">https://arxiv.org/abs/2203.02155</a>
+    <p>Like dog training. Humans show good examples, rank outputs, build a scorecard (reward model). AI practices using the scorecard. This process (RLHF) is the secret sauce that turned raw GPT into ChatGPT.</p>
+    <pre><code>  Step 1: Humans show good examples
+  Step 2: Humans rank outputs -&gt; build Reward Model
+  Step 3: Model improves using scorecard
+       +--------+  generate   +-----------+  score  +----------+
+       | GPT-3  | ---------&gt; | REWARD    | ------&gt; | Update   |
+       |        | &lt;--------- | MODEL     |         | &amp; repeat |
+       +--------+  improve   +-----------+         +----------+
+  BEFORE RLHF: &quot;Here is a 2000-word essay about dolphins...&quot;
+  AFTER  RLHF: &quot;Sure! Here are 3 key facts about dolphins.&quot;</code></pre>
+    <p><strong>Why it matters:</strong> Cracked making powerful AI obedient and helpful — direct ancestor of ChatGPT.</p>
+  </div>
+  <div class="paper">
+    <h3>LLaMA (2023)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2302.13971">https://arxiv.org/abs/2302.13971</a>
+    <p>Smaller model trained on MORE data beats model 10x its size. LLaMA-13B beat GPT-3-175B. Like a small kitchen that practices recipes a thousand times beating a giant one. Made weights open for everyone.</p>
+    <pre><code>  GPT-3:  175B params x 300B tokens = &quot;big oven, few recipes&quot;
+  LLaMA:   13B params x  1T+ tokens = &quot;small oven, TONS of practice&quot;
+
+  Result:  LLaMA 13B &gt;= GPT-3 175B on many benchmarks!
+  AND it&#x27;s open source!</code></pre>
+    <p><strong>Why it matters:</strong> Don&#x27;t need a billion-dollar budget for top-tier AI. Open access.</p>
+  </div>
+  <div class="paper">
+    <h3>Llama 2 (2023)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2307.09288">https://arxiv.org/abs/2307.09288</a>
+    <p>Improved second edition: 40% more data, longer memory, RLHF chat versions, published safety testing. Like giving away the car free WITH seatbelts, airbags, and crash-test report.</p>
+    <pre><code>  LLaMA v1 --&gt; Llama 2:
+  + 40% more training data
+  + Longer memory (4K context)
+  + RLHF chat versions
+  + Safety testing &amp; report
+  = Free car WITH seatbelts and airbags</code></pre>
+    <p><strong>Why it matters:</strong> Gold standard for releasing powerful open AI responsibly.</p>
+  </div>
+  <div class="paper">
+    <h3>Mixtral 8x7B (2024)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2401.04088">https://arxiv.org/abs/2401.04088</a>
+    <p>Hospital with 8 specialist doctors. Triage nurse sends each patient to just 2 of 8. Total 47B params, only 13B active at a time. Matches 70B models at fraction of cost.</p>
+    <pre><code>  Word comes in -&gt; ROUTER picks 2 of 8 experts
+                      /                     \
+                  [Expert 3]            [Expert 7]
+                      \                     /
+                       -&gt; Combined answer
+
+  TOTAL: 47B  |  ACTIVE: 13B  |  MATCHES: ~70B models</code></pre>
+    <p><strong>Why it matters:</strong> Smart routing of specialists is cheaper, faster, and just as good.</p>
+  </div>
+  <div class="paper">
+    <h3>DeepSeek-V2 (2024)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2405.04434">https://arxiv.org/abs/2405.04434</a>
+    <p>Compressed conversation memory (KV cache) by 90% using shorthand that expands on demand. Plus 160 tiny specialist experts (vs Mixtral&#x27;s 8 big ones). Way cheaper to run.</p>
+    <pre><code>  Normal model:   Full notes --&gt; HUGE memory (100%)
+  DeepSeek-V2:    Shorthand  --&gt; 10% memory, expand on demand
+
+  Also: 160 fine-grained experts (pick 6) vs 8 big experts (pick 2)
+  Same quality, dramatically cheaper to serve</code></pre>
+    <p><strong>Why it matters:</strong> Slashed memory costs by ~93%, making powerful AI affordable at scale.</p>
+  </div>
+  <div class="paper">
+    <h3>DeepSeek-R1 (2025)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2501.12948">https://arxiv.org/abs/2501.12948</a>
+    <p>No textbook, no tutor — just &#x27;right/wrong&#x27; feedback. Through pure RL, the model spontaneously started checking its own work. Nobody programmed it. Matches OpenAI&#x27;s o1. Open source.</p>
+    <pre><code>  Traditional:  Human writes &quot;Step 1... Step 2...&quot; -&gt; AI copies
+  DeepSeek-R1:  AI tries -&gt; Right/Wrong -&gt; repeat millions of times
+
+  EMERGED ON ITS OWN:
+  &quot;The answer is 42... Wait, let me verify...
+   Step 3 seems wrong... Let me redo it...
+   Actually, the answer is 47.&quot;</code></pre>
+    <p><strong>Why it matters:</strong> AI can learn to reason and self-correct through practice alone.</p>
+  </div>
+  <hr>
+
+  <h2 id="reasoning">2. Reasoning &amp; Agents</h2>
+  <div class="paper">
+    <h3>Chain-of-Thought Prompting (2022)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2201.11903">https://arxiv.org/abs/2201.11903</a>
+    <p>Show a kid how to solve a math problem by writing out each step, they copy the pattern. Same with AI — show it examples with thinking written out, and it stops skipping steps.</p>
+    <pre><code>  WITHOUT CoT:  [Question] -------&gt; [Answer] (often wrong!)
+
+  WITH CoT:     [Question]
+                    |
+                [Step 1: First, I notice...]
+                    |
+                [Step 2: That means...]
+                    |
+                [Step 3: So I calculate...]
+                    |
+                [Answer] (much better!)</code></pre>
+    <p><strong>Why it matters:</strong> Simply asking AI to &#x27;show its work&#x27; dramatically improves accuracy.</p>
+  </div>
+  <div class="paper">
+    <h3>Self-Consistency (2022)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2203.11171">https://arxiv.org/abs/2203.11171</a>
+    <p>Ask AI the same question multiple times with different reasoning paths, pick the answer that comes up most often. Like asking 10 friends independently and going with the majority.</p>
+    <pre><code>                    [Same Question]
+                   /    |    |    \
+                  v     v    v     v
+              [Path A][Path B][Path C][Path D]
+                 |      |      |       |
+                (42)   (42)   (37)    (42)
+                  \     |      |      /
+                  VOTE: 42 wins! (3/4 agree)</code></pre>
+    <p><strong>Why it matters:</strong> Majority vote catches mistakes a single attempt would miss.</p>
+  </div>
+  <div class="paper">
+    <h3>Tree of Thoughts (2023)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2305.10601">https://arxiv.org/abs/2305.10601</a>
+    <p>Chess player thinking: explore multiple paths, evaluate each, backtrack from dead ends. Instead of one chain, AI branches like a tree.</p>
+    <pre><code>                     [Problem]
+                    /    |    \
+                [Idea A][Idea B][Idea C]
+                /    \     |       |
+            [A1]   [A2]  [B1]   [C1]
+            Good!   XX   Good!   XX      XX = dead end
+             |             |
+           *BEST*       (backup)</code></pre>
+    <p><strong>Why it matters:</strong> Explore, evaluate, and backtrack lets AI solve creative puzzles.</p>
+  </div>
+  <div class="paper">
+    <h3>Scaling Test-Time Compute (2024)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2408.03314">https://arxiv.org/abs/2408.03314</a>
+    <p>Two ways to improve: (1) bigger brain (expensive), (2) more thinking time (cheaper). A smaller AI that thinks longer can beat a larger model that answers quickly.</p>
+    <pre><code>  OLD: Bigger brain -&gt; $$$$$$$$$, Quick answer (decent)
+  NEW: Smaller brain -&gt; $$$, Think...think...check... -&gt; Answer!
+
+  Cost: LESS     Result: Often BETTER!</code></pre>
+    <p><strong>Why it matters:</strong> Better answers by spending compute at question time, not just training.</p>
+  </div>
+  <div class="paper">
+    <h3>ReAct (2022)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2210.03629">https://arxiv.org/abs/2210.03629</a>
+    <p>Detective solving a mystery: think (&#x27;victim was at docks&#x27;), act (go to docks), observe (find receipt), think again. AI alternates between reasoning and taking real actions.</p>
+    <pre><code>  THOUGHT --&gt; ACTION --&gt; OBSERVE
+  &quot;I need     [Search]    &quot;Result:
+   to find&quot;   &quot;Einstein    Born 1879&quot;
+               birth&quot;
+       ^                      |
+       +----------------------+
+       v
+  THOUGHT --&gt; ACTION --&gt; OBSERVE --&gt; FINAL ANSWER</code></pre>
+    <p><strong>Why it matters:</strong> Combining thinking with real actions grounds AI in facts.</p>
+  </div>
+  <div class="paper">
+    <h3>Toolformer (2023)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2302.04761">https://arxiv.org/abs/2302.04761</a>
+    <p>Student discovers calculators, search engines on their own through trial and error. AI taught itself which tools help and when — no rules programmed.</p>
+    <pre><code>  BEFORE: &quot;What is 3847 x 192?&quot;  -&gt; [AI Brain] -&gt; &quot;738,624?&quot; (WRONG)
+
+  AFTER:  &quot;What is 3847 x 192?&quot;
+          [AI Brain]: &quot;I should use a calculator&quot;
+          [Calculator] -&gt; 738,624   &lt;- AI LEARNS this helps!
+          &quot;The answer is 738,624&quot; (CORRECT)</code></pre>
+    <p><strong>Why it matters:</strong> AI figures out tool use on its own.</p>
+  </div>
+  <div class="paper">
+    <h3>Voyager (2023)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2305.16291">https://arxiv.org/abs/2305.16291</a>
+    <p>Minecraft player with a recipe book. Learns skills, saves them, builds on them forever. Uses old skills to learn harder ones.</p>
+    <pre><code>  EXPLORE -&gt; SET GOAL -&gt; TRY IT -&gt; Worked? Save to SKILL LIBRARY
+                                       |
+                                   Failed? Try again with fixes
+  SKILL LIBRARY: [chop_tree] [build_shelter] [mine_iron] ...growing!</code></pre>
+    <p><strong>Why it matters:</strong> AI that builds a growing library of reusable skills — endless learning.</p>
+  </div>
+  <div class="paper">
+    <h3>Generative Agents (2023)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2304.03442">https://arxiv.org/abs/2304.03442</a>
+    <p>25 AI characters in a virtual town, each with memories. They plan their day, form relationships, organize events — all emergently. Like The Sims powered by ChatGPT.</p>
+    <pre><code>  6AM  [Wake up] -&gt; MEMORY STREAM (diary of everything)
+           |
+       [REFLECT] &quot;I&#x27;ve been spending time with Sam... friends.&quot;
+           |
+       [PLAN] 1. Finish painting 2. Meet Sam 3. Go to party
+           |
+       [Live the day, make new memories]
+           |
+  10PM [Sleep] ...memories gently fade...</code></pre>
+    <p><strong>Why it matters:</strong> Give AI memory + reflection + planning = believable society emerges.</p>
+  </div>
+  <div class="paper">
+    <h3>AutoGen (2023)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2308.08155">https://arxiv.org/abs/2308.08155</a>
+    <p>Team building a house: specialists pass messages. &#x27;Here&#x27;s my code.&#x27; &#x27;Bug on line 12.&#x27; &#x27;Fixed. Test again?&#x27; AutoGen builds AI teams. A human can jump in anytime.</p>
+    <pre><code>  +-----------+     +-----------+     +-----------+
+  |  WRITER   |----&gt;| REVIEWER  |----&gt;|  TESTER   |
+  | &quot;Here&#x27;s   |     | &quot;Bug on   |     | &quot;All tests|
+  |  my code&quot; |     |  line 12&quot; |     |  pass now&quot;|
+  +-----------+     +-----------+     +-----------+
+  HUMAN (you) can jump in anytime!</code></pre>
+    <p><strong>Why it matters:</strong> Assemble specialized AI agents that collaborate like coworkers.</p>
+  </div>
+  <div class="paper">
+    <h3>LLM Autonomous Agents Survey (2023)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2308.11432">https://arxiv.org/abs/2308.11432</a>
+    <p>Encyclopedia of every AI agent design: brain (LLM), memory (experiences), hands (tools). The field guide to the whole landscape.</p>
+    <pre><code>  THE ANATOMY OF AN AI AGENT:
+       +---------------------------+
+       |       BRAIN (LLM)         |
+       +---+-----------+-----------+
+           |           |           |
+      [PLANNING]  [MEMORY]    [ACTION]
+      Break tasks  Short/Long  Use tools
+      into steps   term recall  Search, code</code></pre>
+    <p><strong>Why it matters:</strong> The single best map of the AI agents territory.</p>
+  </div>
+  <div class="paper">
+    <h3>SWE-agent (2024)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2405.15793">https://arxiv.org/abs/2405.15793</a>
+    <p>Brilliant plumber with no map vs. one with a floor plan. Interface design matters as much as intelligence. Custom workspace -&gt; AI fixed 12.5% of real GitHub bugs.</p>
+    <pre><code>  BAD: Raw terminal -&gt; AI lost -&gt; 0% fixed
+  GOOD: Custom interface:
+    &gt; search(&quot;bug&quot;)
+    &gt; open(file.py)
+    &gt; edit(line 42)
+    &gt; run_tests()
+  Result: 12.5% of real bugs fixed!</code></pre>
+    <p><strong>Why it matters:</strong> Workspace design matters as much as how smart the AI is.</p>
+  </div>
+  <hr>
+
+  <h2 id="multimodal">3. Multimodal &amp; Vision</h2>
+  <div class="paper">
+    <h3>CLIP (2021)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2103.00020">https://arxiv.org/abs/2103.00020</a>
+    <p>Child who grew up with 400M picture books. Matches images with text descriptions. Can recognize things nobody trained it on, just by reading a text description.</p>
+    <pre><code>  [Photo of dog]        &quot;A golden retriever in a park&quot;
+       |                          |
+   IMAGE ENCODER           TEXT ENCODER
+       |                          |
+   [vector] &lt;-- MATCH? --&gt; [vector]
+   If match --&gt; &quot;Yes, this IS a dog in a park!&quot;</code></pre>
+    <p><strong>Why it matters:</strong> Understand images through language — recognize anything you can describe.</p>
+  </div>
+  <div class="paper">
+    <h3>Flamingo (2022)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2204.14198">https://arxiv.org/abs/2204.14198</a>
+    <p>Show it 3-4 examples of &#x27;image + question + answer&#x27; and it figures out new images. Like a quick learner who picks up tasks by watching someone a few times.</p>
+    <pre><code>  Example 1: [cat]   &quot;Animal?&quot; -&gt; &quot;Yes&quot;
+  Example 2: [truck] &quot;Animal?&quot; -&gt; &quot;No&quot;
+  Example 3: [rose]  &quot;Animal?&quot; -&gt; &quot;No&quot;
+  NEW:        [horse] &quot;Animal?&quot; -&gt; &quot;Yes!&quot; (after just 3 examples!)</code></pre>
+    <p><strong>Why it matters:</strong> Learn new visual tasks from just a handful of examples.</p>
+  </div>
+  <div class="paper">
+    <h3>LLaVA (2023)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2304.08485">https://arxiv.org/abs/2304.08485</a>
+    <p>Connected &#x27;seeing&#x27; AI (CLIP) to &#x27;talking&#x27; AI (LLaMA) with a simple bridge. Like hiring a translator between a blind genius and a mute observer. Open source.</p>
+    <pre><code>  [Birthday party photo]
+        |
+  CLIP (the eye) -&gt; &quot;cake, kids, balloons&quot;
+        |
+  BRIDGE (translator)
+        |
+  LLaMA (the brain) -&gt; &quot;A child&#x27;s birthday party!&quot;</code></pre>
+    <p><strong>Why it matters:</strong> Build see-and-talk AI by connecting existing parts with a thin bridge — for free.</p>
+  </div>
+  <div class="paper">
+    <h3>GPT-4V (2023)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2303.08774">https://arxiv.org/abs/2303.08774</a>
+    <p>The smartest person you know suddenly gets perfect eyesight. Already wrote essays and passed the bar exam — now can also understand photos, charts, memes, handwriting.</p>
+    <pre><code>  BEFORE: &quot;Tell me about sunsets&quot;  -&gt; Generic text answer
+  AFTER:  [Photo of sunset] &quot;Tell me about this&quot;
+          -&gt; &quot;This is a sunset over the ocean. The orange
+              and pink hues suggest late summer, taken
+              from a west-facing beach...&quot;</code></pre>
+    <p><strong>Why it matters:</strong> First AI product millions could use to discuss anything they photograph.</p>
+  </div>
+  <div class="paper">
+    <h3>Segment Anything / SAM (2023)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2304.02643">https://arxiv.org/abs/2304.02643</a>
+    <p>Magic scissors for images. Point at any object in any photo and it perfectly outlines it. Trained on 1 billion masks. Works on anything.</p>
+    <pre><code>  ORIGINAL PHOTO:  [clouds] [sun] [house] [tree]
+                                         ^
+                                    YOU POINT HERE
+                                         |
+                                    SAM outlines:
+                                    +----------+
+                                    | *HOUSE!* |
+                                    +----------+
+  Works on ANY object in ANY image</code></pre>
+    <p><strong>Why it matters:</strong> Instantly cut out any object from any photo.</p>
+  </div>
+  <div class="paper">
+    <h3>DDPM (2020)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2006.11239">https://arxiv.org/abs/2006.11239</a>
+    <p>Start with painting, gradually add noise until pure static. Train AI to reverse: turn static back into image step by step. Foundation of ALL modern image generators.</p>
+    <pre><code>  FORWARD:  [Clean photo] -&gt; [Fuzzy] -&gt; [Noisy] -&gt; [Static]
+  REVERSE (AI learns this):
+            [Static] -&gt; [Vaguely something] -&gt; [Almost] -&gt; [Clean!]
+  Step by step, static becomes a picture!</code></pre>
+    <p><strong>Why it matters:</strong> The engine inside every major AI image generator.</p>
+  </div>
+  <div class="paper">
+    <h3>Latent Diffusion / Stable Diffusion (2021)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2112.10752">https://arxiv.org/abs/2112.10752</a>
+    <p>Compress image to tiny version, do creative work there, decompress back. Same quality, way faster. Made AI art accessible on regular laptops.</p>
+    <pre><code>  OLD: [Static 1024x1024] --slow--&gt; [Image 1024x1024] EXPENSIVE
+  NEW: [Compress to 64x64] --fast--&gt; [Decompress to 1024x1024]
+       Same quality. Runs on YOUR computer.</code></pre>
+    <p><strong>Why it matters:</strong> AI art generation fast and cheap enough for regular laptops.</p>
+  </div>
+  <div class="paper">
+    <h3>DALL-E 2 (2022)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2204.06125">https://arxiv.org/abs/2204.06125</a>
+    <p>Type &#x27;a teddy bear skateboarding in Times Square&#x27; -&gt; CLIP understands concept -&gt; diffusion paints it. Brought AI art to mainstream public.</p>
+    <pre><code>  &quot;An astronaut riding a horse on the moon&quot;
+        |
+  [CLIP brain] -&gt; [concept embedding] -&gt; [Diffusion painter]
+        |
+  A brand-new image that never existed before!</code></pre>
+    <p><strong>Why it matters:</strong> AI-generated art went mainstream.</p>
+  </div>
+  <div class="paper">
+    <h3>Imagen (2022)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2205.11487">https://arxiv.org/abs/2205.11487</a>
+    <p>Making TEXT understanding bigger matters more than making IMAGE part bigger. A well-read artist who understands your words beats a technically skilled one who barely speaks your language.</p>
+    <pre><code>  Others: Small text brain + GIANT painter -&gt; &quot;Close, not quite&quot;
+  Imagen: GIANT text brain + Normal painter -&gt; &quot;Exactly right!&quot;
+  WINNER: Better listening beats better painting!</code></pre>
+    <p><strong>Why it matters:</strong> Key to better AI art is better listening, not better painting.</p>
+  </div>
+  <div class="paper">
+    <h3>Stable Diffusion 3 / MMDiT (2024)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2403.03206">https://arxiv.org/abs/2403.03206</a>
+    <p>Text and image flow through SAME network, constantly influencing each other. Like architect and builder standing shoulder to shoulder. Finally solved text-in-images.</p>
+    <pre><code>  OLD: Text sent occasionally to painter (works alone)
+  NEW (MMDiT):
+    Layer 1: [text] &lt;==TALK==&gt; [image]
+    Layer 2: [text] &lt;==TALK==&gt; [image]
+    Layer N: [text] &lt;==TALK==&gt; [image] -&gt; Final image
+  Text and image talk at EVERY step!</code></pre>
+    <p><strong>Why it matters:</strong> Solved the problem of AI art being terrible at text in images.</p>
+  </div>
+  <div class="paper">
+    <h3>InternVL (2023)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2312.14238">https://arxiv.org/abs/2312.14238</a>
+    <p>Most systems invested in bigger brains but kept &#x27;eyes&#x27; small. InternVL scaled vision to 6B params. Great eyes matter as much as great brain.</p>
+    <pre><code>  Before: small vision (300M) + big brain -&gt; &quot;I think a red car?&quot;
+  After:  HUGE vision (6B)  + big brain -&gt; &quot;Red 2019 Tesla Model 3,
+                                             dented bumper.&quot;</code></pre>
+    <p><strong>Why it matters:</strong> AI&#x27;s &#x27;eyes&#x27; as important as its &#x27;brain.&#x27;</p>
+  </div>
+  <div class="paper">
+    <h3>Sora (2024)</h3>
+    <a class="arxiv" href="https://openai.com/index/video-generation-models-as-world-simulators/">https://openai.com/index/video-generation-models-as-world-simulators/</a>
+    <p>Generates 1-minute videos from text. Understands physics, 3D, camera movement. Treats video as spacetime patches, fills them in coherently.</p>
+    <pre><code>  &quot;A drone shot over a coral reef&quot;
+        |
+  Video = grid of SPACETIME PATCHES
+  +-----+-----+-----+-----+-----+
+  |t=0  |t=1  |t=2  |t=3  |t=4  |
+  +-----+-----+-----+-----+-----+
+  Diffusion Transformer fills each -&gt; smooth 1-min video</code></pre>
+    <p><strong>Why it matters:</strong> Leap from still images to coherent, physics-aware video.</p>
+  </div>
+  <hr>
+
+  <h2 id="alignment">4. RLHF, Alignment &amp; Fine-tuning</h2>
+  <div class="paper">
+    <h3>Fine-Tuning LMs from Human Preferences (2019)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/1909.08593">https://arxiv.org/abs/1909.08593</a>
+    <p>Like training a dog: try, get feedback, build auto-judge, practice. The original recipe behind ChatGPT&#x27;s training methodology.</p>
+    <pre><code>  AI tries -&gt; Human says &quot;good/bad&quot; -&gt; Build REWARD MODEL
+  -&gt; AI practices against reward model -&gt; Gets better
+  The original recipe behind ChatGPT</code></pre>
+    <p><strong>Why it matters:</strong> Foundational recipe for teaching AI what humans want.</p>
+  </div>
+  <div class="paper">
+    <h3>LoRA (2021)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2106.09685">https://arxiv.org/abs/2106.09685</a>
+    <p>Freeze the grand piano, clip on a tiny attachment. 10,000x fewer trainable params, same performance. Like adding a capo to a guitar instead of rebuilding it.</p>
+    <pre><code>  Traditional: Change ALL billions of settings -&gt; $$$, days
+  LoRA:        Freeze + tiny adapters          -&gt; $, hours
+  Parameters:  10,000x fewer
+  Result:      Both equally good!</code></pre>
+    <p><strong>Why it matters:</strong> Affordable AI customization for anyone.</p>
+  </div>
+  <div class="paper">
+    <h3>Prefix-Tuning (2021)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2101.00190">https://arxiv.org/abs/2101.00190</a>
+    <p>Sticky notes on a textbook. 0.1% of parameters updated, steers the whole model. The textbook never changes.</p>
+    <pre><code>  Layer 1: [Sticky Note] --&gt; | Frozen Chapter 1 |
+  Layer 2: [Sticky Note] --&gt; | Frozen Chapter 2 |
+  Layer N: [Sticky Note] --&gt; | Frozen Chapter N |
+  Only sticky notes are trainable! 0.1% of parameters.</code></pre>
+    <p><strong>Why it matters:</strong> Steer a giant AI with absurdly small changes.</p>
+  </div>
+  <div class="paper">
+    <h3>Constitutional AI (2022)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2212.08073">https://arxiv.org/abs/2212.08073</a>
+    <p>Give AI a list of rules (&#x27;constitution&#x27;), let it self-check and revise before anyone sees it. Automates safety without humans reviewing every response.</p>
+    <pre><code>  THE CONSTITUTION: 1. Be helpful 2. Be honest 3. Be harmless
+  AI writes -&gt; Checks own rules -&gt; &quot;Does this break any rules?&quot;
+  NO -&gt; Send it!  |  YES -&gt; Revise, check again</code></pre>
+    <p><strong>Why it matters:</strong> AI learns safety at scale without human reviewing every response.</p>
+  </div>
+  <div class="paper">
+    <h3>Reward Model Overoptimization (2022)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2210.10760">https://arxiv.org/abs/2210.10760</a>
+    <p>Student games the test: score goes up, knowledge goes down. Same with AI — optimizing too hard against reward makes true quality decrease. Goodhart&#x27;s Law.</p>
+    <pre><code>  TRUE quality:   peaks then FALLS with more optimization
+  REWARD score:   keeps rising (but it&#x27;s being GAMED)
+  THE GAP = Overoptimization (Goodhart&#x27;s Law)</code></pre>
+    <p><strong>Why it matters:</strong> Blindly maximizing AI scores can make it worse, not better.</p>
+  </div>
+  <div class="paper">
+    <h3>DPO (2023)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2305.18290">https://arxiv.org/abs/2305.18290</a>
+    <p>Old way: 3 complex steps (rank, reward model, RL). DPO: show &#x27;good vs bad&#x27; pairs + simple formula. No reward model, no RL needed.</p>
+    <pre><code>  OLD (RLHF): 3 steps, 4+ models, HIGH complexity -&gt; Good
+  NEW (DPO):  1 step,  1 model,  LOW complexity  -&gt; Equally good!</code></pre>
+    <p><strong>Why it matters:</strong> Preference training accessible to everyone.</p>
+  </div>
+  <div class="paper">
+    <h3>QLoRA (2023)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2305.14314">https://arxiv.org/abs/2305.14314</a>
+    <p>Compress model to 4-bit + attach LoRA adapters. Fine-tune a 65B model on a SINGLE consumer GPU. Like compressing a 4K movie for your phone.</p>
+    <pre><code>  Full: 65B params, 16-bit -&gt; ~130 GB -&gt; server room
+  QLoRA: 65B params, 4-bit + LoRA -&gt; ~48 GB -&gt; 1 consumer GPU!
+  Quality: 99.3% of ChatGPT</code></pre>
+    <p><strong>Why it matters:</strong> Powerful AI customization on hobbyist hardware.</p>
+  </div>
+  <div class="paper">
+    <h3>Representation Engineering (2023)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2310.01405">https://arxiv.org/abs/2310.01405</a>
+    <p>Found &#x27;volume knobs&#x27; inside AI for honesty, morality, power-seeking. Can read and adjust them at runtime. Like a mixing board in a recording studio.</p>
+    <pre><code>  THE AI&#x27;s INTERNAL MIXING BOARD:
+    Honesty     Morality    Power-seeking
+   [====*===]  [===*====]  [===*====]
+     turn UP     turn UP     turn DOWN
+  Read &amp; adjust these &quot;personality dials&quot; in real time!</code></pre>
+    <p><strong>Why it matters:</strong> Control AI behavior through internal &#x27;personality dials.&#x27;</p>
+  </div>
+  <div class="paper">
+    <h3>SPIN (2024)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2401.01335">https://arxiv.org/abs/2401.01335</a>
+    <p>Painter compares work to masterpiece, improves each round. Self-competition without human feedback — each version of the AI tries to beat its old self.</p>
+    <pre><code>  Round 1: Human responses vs AI v0 -&gt; AI v1 (better!)
+  Round 2: Human responses vs AI v1 -&gt; AI v2 (even better!)
+  Round 3: ...each round harder, each version closer to human</code></pre>
+    <p><strong>Why it matters:</strong> AI self-improves through self-competition.</p>
+  </div>
+  <div class="paper">
+    <h3>KTO (2024)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2402.01306">https://arxiv.org/abs/2402.01306</a>
+    <p>Only needs thumbs up/down on individual responses (not pairs). Based on psychology: humans feel losses ~2x as strongly as gains. Much cheaper data.</p>
+    <pre><code>  OLD (DPO): &quot;Which is better, A or B?&quot; (expensive pairs)
+  NEW (KTO): &quot;Was this good or bad?&quot; (simple, cheap)
+             Thumbs down weighs 2x more (loss aversion)</code></pre>
+    <p><strong>Why it matters:</strong> Much cheaper data collection for alignment.</p>
+  </div>
+  <div class="paper">
+    <h3>ORPO (2024)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2403.07691">https://arxiv.org/abs/2403.07691</a>
+    <p>Merge &#x27;teach language&#x27; and &#x27;teach preferences&#x27; into ONE training run. Like a school teaching reading and manners in the same class. No reference model needed.</p>
+    <pre><code>  OLD: Step 1 (language) THEN Step 2 (preferences)
+  ORPO: Both AT THE SAME TIME in one step. Done!
+  Half the time, half the compute.</code></pre>
+    <p><strong>Why it matters:</strong> Cuts training pipeline nearly in half.</p>
+  </div>
+  <hr>
+
+  <h2 id="rag">5. RAG, Embeddings &amp; Efficient Inference</h2>
+  <div class="paper">
+    <h3>REALM (2020)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2002.08909">https://arxiv.org/abs/2002.08909</a>
+    <p>Student + librarian learn together. Every time the student studies, the librarian finds the best page. Both improve together over time.</p>
+    <pre><code>  LIBRARIAN (Retriever) &lt;--&gt; STUDENT (Language Model)
+       |                              |
+  finds best page              reads and learns
+  from encyclopedia            from that page
+  Both improve with every question!</code></pre>
+    <p><strong>Why it matters:</strong> AI that looks things up while learning = smarter, more factual.</p>
+  </div>
+  <div class="paper">
+    <h3>RAG (2020)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2005.11401">https://arxiv.org/abs/2005.11401</a>
+    <p>Open-book exam. When you ask a question, AI first searches a textbook for relevant pages, then writes its answer using those pages. Like a friend who checks notes instead of guessing.</p>
+    <pre><code>  Question -&gt; SEARCH ENGINE finds relevant docs
+                         |
+                    [Doc 1] [Doc 2] [Doc 3]
+                         \     |     /
+                    SMART WRITER reads docs
+                         |
+                    Grounded answer</code></pre>
+    <p><strong>Why it matters:</strong> Answers backed by sources — reduces &#x27;making things up.&#x27;</p>
+  </div>
+  <div class="paper">
+    <h3>Dense Passage Retrieval (2020)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2004.04906">https://arxiv.org/abs/2004.04906</a>
+    <p>Every passage gets a &#x27;meaning fingerprint.&#x27; Find the closest match by meaning, not exact words. Like finding friends by shared interests, not matching name tags.</p>
+    <pre><code>  OLD: Search words &quot;dog learning tricks&quot;
+       -&gt; MISS: &quot;Canine Training Techniques&quot; (different words!)
+  NEW (DPR): Compare meaning fingerprints
+       -&gt; MATCH! (similar meaning, different words)</code></pre>
+    <p><strong>Why it matters:</strong> Search by meaning, not keywords — dramatically more accurate.</p>
+  </div>
+  <div class="paper">
+    <h3>Sentence-BERT (2019)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/1908.10084">https://arxiv.org/abs/1908.10084</a>
+    <p>Comparing 10,000 sentences: 65 hours before, 5 seconds after. Each sentence gets a permanent &#x27;vibe code&#x27; in one pass. Comparing is just comparing two number lists.</p>
+    <pre><code>  BEFORE: Feed BOTH sentences in for each pair -&gt; 65 HOURS
+  AFTER:  Stamp each sentence once -&gt; Compare stamps -&gt; 5 SECONDS
+  &quot;I love cats&quot; -&gt; [0.9, 0.2, 0.1, ...]
+  &quot;I adore kittens&quot; -&gt; [0.8, 0.3, 0.1, ...]  SIMILAR!</code></pre>
+    <p><strong>Why it matters:</strong> Compare millions of sentences instantly.</p>
+  </div>
+  <div class="paper">
+    <h3>Matryoshka Representation Learning (2022)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2205.13147">https://arxiv.org/abs/2205.13147</a>
+    <p>Russian nesting dolls: first 64 dims are decent, 128 better, 256 great. One model, many sizes. Use short for speed, long for accuracy.</p>
+    <pre><code>  [64 dims ] = Quick &amp; decent
+  [128 dims     ] = Better
+  [256 dims            ] = Great
+  [512 dims                   ] = Excellent
+  [1024 dims                           ] = Best
+  Each smaller doll works on its own!</code></pre>
+    <p><strong>Why it matters:</strong> One model at different quality/speed levels.</p>
+  </div>
+  <div class="paper">
+    <h3>GPTQ (2022)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2210.17323">https://arxiv.org/abs/2210.17323</a>
+    <p>Repaint a million-color painting with 8-16 colors using clever math. 175B model: 350GB -&gt; 80GB. Runs on a home gaming PC.</p>
+    <pre><code>  Before: 16-bit precision -&gt; 350 GB -&gt; server farm
+  After:  3-4 bit (GPTQ)  -&gt;  80 GB -&gt; home gaming PC
+  Quality: ~97% preserved</code></pre>
+    <p><strong>Why it matters:</strong> Massive AI models on ordinary people&#x27;s computers.</p>
+  </div>
+  <div class="paper">
+    <h3>AWQ (2023)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2306.00978">https://arxiv.org/abs/2306.00978</a>
+    <p>Only ~1% of weights really matter. AWQ identifies VIPs by watching activations, then protects them during compression. Better quality than GPTQ at same size.</p>
+    <pre><code>  All weights: o o o * o o o o * o o o  (* = VIP, 1%)
+  VIPs: Handle with care!  |  Regular: Compress hard!
+  Result: SMALLER than GPTQ, BETTER quality</code></pre>
+    <p><strong>Why it matters:</strong> Smart compression knows what matters most.</p>
+  </div>
+  <div class="paper">
+    <h3>Speculative Decoding (2022)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2211.17192">https://arxiv.org/abs/2211.17192</a>
+    <p>Fast intern drafts 5-8 words, boss checks all at once. Most accepted. 2-3x faster, mathematically identical output. A rare &#x27;free lunch.&#x27;</p>
+    <pre><code>  WITHOUT: Boss writes one word at a time  -&gt; 4 seconds
+  WITH:    Intern drafts 4 words (0.2s)
+           Boss checks all at once (1s)    -&gt; 1.2 seconds!
+           Same exact output! 2-3x faster!</code></pre>
+    <p><strong>Why it matters:</strong> 2-3x faster with zero quality loss — a rare &#x27;free lunch.&#x27;</p>
+  </div>
+  <div class="paper">
+    <h3>Speculative Sampling (2023)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2302.01318">https://arxiv.org/abs/2302.01318</a>
+    <p>Same idea as speculative decoding, discovered independently by DeepMind. Adds the rigorous mathematical PROOF that the output distribution is provably identical.</p>
+    <pre><code>  Speculative Decoding (2022): &quot;This trick works!&quot;
+  Speculative Sampling (2023): &quot;Here&#x27;s the PROOF it works!&quot;
+  P(output) = P(big model alone) -- GUARANTEED</code></pre>
+    <p><strong>Why it matters:</strong> Mathematical guarantee that output is provably identical.</p>
+  </div>
+  <div class="paper">
+    <h3>Switch Transformers (2021)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2101.03961">https://arxiv.org/abs/2101.03961</a>
+    <p>Hospital with 100 specialists. Receptionist sends each patient to ONE specialist. 1 trillion params but each word uses ~1/100th.</p>
+    <pre><code>  Word: &quot;cooking&quot; -&gt; ROUTER -&gt; [Expert: Food] (only this one!)
+
+  Total parameters: 1 TRILLION
+  Parameters used per word: ~1/100th</code></pre>
+    <p><strong>Why it matters:</strong> Enormously knowledgeable models that stay efficient.</p>
+  </div>
+  <div class="paper">
+    <h3>DeepSeek-V2 (2024)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2405.04434">https://arxiv.org/abs/2405.04434</a>
+    <p>Compressed conversation memory (KV cache) by 93% using shorthand that expands on demand. 160 fine-grained experts. Dramatically cheaper to serve.</p>
+    <pre><code>  Normal: Full notes -&gt; HUGE memory
+  DeepSeek-V2: Shorthand -&gt; 7% memory, expand when needed
+  + 160 tiny experts (pick 6) instead of 8 big experts (pick 2)</code></pre>
+    <p><strong>Why it matters:</strong> Powerful AI affordable to serve to millions.</p>
+  </div>
+  <hr>
+
+  <h2 id="codegen">6. Code Generation &amp; Breakthroughs</h2>
+  <div class="paper">
+    <h3>Codex (2021)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2107.03374">https://arxiv.org/abs/2107.03374</a>
+    <p>GPT trained on code from GitHub. Powers GitHub Copilot. Introduced HumanEval benchmark. 29% first try, 70% with 100 attempts. Launched the AI-coding era.</p>
+    <pre><code>  BEFORE: Developer types every line by hand [ @_@ ]
+  AFTER:  Developer starts typing -&gt; CODEX finishes [ ^_^ ]
+  First try: 29%  |  100 attempts: 70%</code></pre>
+    <p><strong>Why it matters:</strong> First practical AI co-pilot for programmers.</p>
+  </div>
+  <div class="paper">
+    <h3>AlphaCode (2022)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2203.13474">https://arxiv.org/abs/2203.13474</a>
+    <p>AI enters programming contests. Generates up to 1M solutions, filters/clusters to pick best 10. Ranked better than ~54% of human competitors.</p>
+    <pre><code>  1 Problem -&gt; 1,000,000 candidate solutions
+  -&gt; Filter &amp; Cluster into piles
+  -&gt; Submit best 10
+  Result: Top 54% of human competitors!</code></pre>
+    <p><strong>Why it matters:</strong> AI competes with humans on genuinely hard reasoning problems.</p>
+  </div>
+  <div class="paper">
+    <h3>StarCoder (2023)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2305.06161">https://arxiv.org/abs/2305.06161</a>
+    <p>Open-source code AI trained on ethically-sourced, permissively licensed code in 80+ languages. Community cookbook vs. secret recipe. Matches proprietary models.</p>
+    <pre><code>  PROPRIETARY: [SECRET RECIPE] No peeking! $$$ to use
+  STARCODER:   [OPEN COOKBOOK] Free! 80+ languages!
+  Result: Rivals the secret recipes!</code></pre>
+    <p><strong>Why it matters:</strong> Democratized AI coding with ethically-built open model.</p>
+  </div>
+  <div class="paper">
+    <h3>SWE-bench (2023)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2310.06770">https://arxiv.org/abs/2310.06770</a>
+    <p>2,294 REAL bugs from real GitHub projects (Django, Flask, etc.). Even GPT-4 solved less than 5%. Exposed the gap between writing toy code and fixing real software.</p>
+    <pre><code>  Easy tests:  AI scores 80%+
+  SWE-bench (2,294 REAL bugs):  GPT-4 scores &lt; 5%
+  REALITY GAP EXPOSED</code></pre>
+    <p><strong>Why it matters:</strong> Exposed gap between &#x27;can write code&#x27; and &#x27;can fix real software.&#x27;</p>
+  </div>
+  <div class="paper">
+    <h3>DeepSeek-Coder (2024)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2401.14196">https://arxiv.org/abs/2401.14196</a>
+    <p>Open-source code models (1.3B to 33B), trained on 2 trillion tokens. The 33B version rivals GPT-3.5-Turbo. Purpose-built, free to download.</p>
+    <pre><code>  2 TRILLION tokens of code training
+  Sizes: 1.3B (laptop) | 6.7B (everyday) | 33B (rivals GPT-3.5)
+  OPEN SOURCE = FREE</code></pre>
+    <p><strong>Why it matters:</strong> Free models compete with expensive commercial AI.</p>
+  </div>
+  <div class="paper">
+    <h3>SWE-agent (2024)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2405.15793">https://arxiv.org/abs/2405.15793</a>
+    <p>Instead of raw terminal, designed custom workshop for AI: search, view, edit, test commands. Interface design matters as much as model intelligence. 12.5% of real bugs fixed.</p>
+    <pre><code>  BAD: Raw terminal -&gt; AI confused -&gt; 0% fixed
+  GOOD: Custom interface:
+    &gt; search(&quot;bug&quot;) &gt; open(file.py) &gt; edit(line 42) &gt; run_tests()
+  Result: 12.5% of real bugs fixed!
+  LESSON: Good tools &gt;= raw brainpower</code></pre>
+    <p><strong>Why it matters:</strong> Workspace design is as critical as AI intelligence.</p>
+  </div>
+  <div class="paper">
+    <h3>Agentless (2024)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2407.01489">https://arxiv.org/abs/2407.01489</a>
+    <p>Everyone was building complex Rube Goldberg machines. Agentless: (1) find the bug, (2) fix it. Two steps. No agent framework. Matched complex systems at 27.3%.</p>
+    <pre><code>  COMPLEX: Search-&gt;Analyze-&gt;Browse-&gt;Plan-&gt;Edit-&gt;Test-&gt;Retry ~27%
+  AGENTLESS: Step 1: WHERE? -&gt; Step 2: FIX. -&gt; 27.3%
+  Sometimes the wrench beats the robot.</code></pre>
+    <p><strong>Why it matters:</strong> Simplicity can match complexity.</p>
+  </div>
+  <div class="paper">
+    <h3>OpenHands (2024)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2407.16741">https://arxiv.org/abs/2407.16741</a>
+    <p>Virtual office where any AI can work like a human developer — write code, use terminal, browse web. The OFFICE, not a specific AI. Open source sandbox.</p>
+    <pre><code>  +============= OPENHANDS PLATFORM =============+
+  | [CODE EDITOR] [TERMINAL] [WEB BROWSER]      |
+  | [----------- SAFE SANDBOX -----------]       |
+  | ANY AI model can sit down and work here      |
+  +=============================================+</code></pre>
+    <p><strong>Why it matters:</strong> Shared free workshop for building AI developers.</p>
+  </div>
+  <div class="paper">
+    <h3>Qwen2.5-Coder (2024)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2409.12186">https://arxiv.org/abs/2409.12186</a>
+    <p>Full lineup from 0.5B to 32B. The 32B version rivals GPT-4o on coding. All free. Pushed open-source frontier to match premium commercial models.</p>
+    <pre><code>  +------+ +------+ +------+ +------+ +---------+
+  | 0.5B | | 1.5B | |  3B  | |  7B  | |   32B   |
+  |pocket| |basic | |laptop| |desk  | |pro-tier |
+  +------+ +------+ +------+ +------+ +---------+
+                                        Rivals GPT-4o</code></pre>
+    <p><strong>Why it matters:</strong> Free models rival best commercial coding AI at every size.</p>
+  </div>
+  <div class="paper">
+    <h3>SCoRe (2024)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2409.12917">https://arxiv.org/abs/2409.12917</a>
+    <p>Taught AI genuine self-correction. Trained to be rewarded for IMPROVING on second try, not just being right first time. +15.6% on math. First proof real self-correction is learnable.</p>
+    <pre><code>  FAKE: &quot;Answer is 7&quot; -&gt; &quot;Let me check...&quot; -&gt; &quot;Answer is 7&quot;
+  REAL (SCoRe):
+    &quot;Answer is 7&quot; -&gt; &quot;Wait, step 3 was wrong...&quot; -&gt; &quot;12!&quot; (fixed!)
+    Reward: credit for IMPROVEMENT, not just being right</code></pre>
+    <p><strong>Why it matters:</strong> First evidence of genuine AI self-correction.</p>
+  </div>
+  <div class="paper">
+    <h3>Design2Code (2024)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2403.03163">https://arxiv.org/abs/2403.03163</a>
+    <p>Show AI a screenshot of a website -&gt; it generates working HTML/CSS. Human judges rated AI&#x27;s version equal or better than original 49% of the time.</p>
+    <pre><code>  [Screenshot of website] -&gt; AI -&gt; [Working HTML/CSS code]
+  Human judges: &quot;Equal or BETTER 49% of the time!&quot;</code></pre>
+    <p><strong>Why it matters:</strong> Website design as simple as showing a screenshot.</p>
+  </div>
+  <div class="paper">
+    <h3>DeepSeek-R1 (2025)</h3>
+    <a class="arxiv" href="https://arxiv.org/abs/2501.12948">https://arxiv.org/abs/2501.12948</a>
+    <p>No examples of how to think. Just right/wrong feedback, millions of times. Independently invented step-by-step thinking, self-checking, reconsideration. Matches o1, 100% open-source.</p>
+    <pre><code>  Traditional: Human writes &quot;Step 1...&quot; -&gt; AI copies
+  DeepSeek-R1: Just right/wrong feedback -&gt; millions of rounds
+  AI DISCOVERS ON ITS OWN:
+    * Step-by-step thinking
+    * Self-checking
+    * &quot;Wait, let me reconsider...&quot;
+  Matches OpenAI o1. 100% open-source.</code></pre>
+    <p><strong>Why it matters:</strong> AI can discover how to think on its own.</p>
+  </div>
+  <hr>
+
+  <hr>
+  <div class="footer">
+    <p><a href="index.html">&larr; Home</a></p>
+    <p>0 frameworks. Pure HTML &amp; CSS. &copy; 2026 Abinash Gogoi</p>
+  </div>
+</div>
+</body>
+</html>
