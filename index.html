@@ -1,168 +1,357 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Abinash Gogoi</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-</head>
-<body>
-<div class="container">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Abinash Gogoi</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <button
+      class="theme-toggle"
+      onclick="toggleTheme()"
+      aria-label="Toggle dark mode"
+    >
+      <i class="fas fa-sun toggle-icon"></i>
+      <i class="fas fa-moon toggle-icon"></i>
+    </button>
+    <div class="container">
+      <!-- Header / Hero -->
+      <div class="header">
+        <img src="photo.jpg" alt="Abinash Gogoi" class="avatar" />
+        <h1>Abinash Gogoi</h1>
+        <p class="tagline">
+          Software Developer at SAP Labs &middot; Bengaluru, India
+        </p>
+        <div class="links">
+          <a href="https://github.com/abinashstack"
+            ><i class="fab fa-github"></i> GitHub</a
+          >
+          <a href="https://linkedin.com/in/abinash-gogoi-1b760a187"
+            ><i class="fab fa-linkedin"></i> LinkedIn</a
+          >
+          <a href="mailto:abinash.gogoi55@gmail.com"
+            ><i class="fas fa-envelope"></i> Email</a
+          >
+          <a href="https://leetcode.com/u/abinashstack"
+            ><i class="fas fa-code"></i> LeetCode</a
+          >
+        </div>
+      </div>
 
-  <!-- Header / Hero -->
-  <div class="header">
-    <img src="photo.jpg" alt="Abinash Gogoi" class="avatar">
-    <h1>Abinash Gogoi</h1>
-    <p class="tagline">Software Developer at SAP Labs &middot; Bengaluru, India</p>
-    <div class="links">
-      <a href="https://github.com/abinashstack"><i class="fab fa-github"></i> GitHub</a>
-      <a href="https://linkedin.com/in/abinash-gogoi-1b760a187"><i class="fab fa-linkedin"></i> LinkedIn</a>
-      <a href="mailto:abinash.gogoi55@gmail.com"><i class="fas fa-envelope"></i> Email</a>
-    </div>
-  </div>
+      <hr />
 
-  <hr>
+      <!-- About -->
+      <h2>About</h2>
+      <div class="about-stats">
+        <div class="stat">
+          <div class="stat-value" id="sap-years">3+</div>
+          <div class="stat-label">Years at SAP</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">9.16</div>
+          <div class="stat-label">CGPA, NIT Silchar</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">Top 3%</div>
+          <div class="stat-label">LeetCode Global</div>
+        </div>
+        <div class="stat">
+          <div class="stat-value">1</div>
+          <div class="stat-label">Springer Publication</div>
+        </div>
+      </div>
+      <p>
+        Problem solver by profession, problem creator by passion. I write code
+        at SAP Labs, obsess over algorithms and math, and argue about time
+        complexity at 2 AM for fun. When I'm not shipping software, I'm
+        deadlifting 130 kg and squatting 120 kg &mdash; because my code isn't
+        the only thing I push to production.
+      </p>
 
-  <!-- About -->
-  <h2>About</h2>
-  <div class="about-stats">
-    <div class="stat">
-      <div class="stat-value">3+</div>
-      <div class="stat-label">Years at SAP</div>
-    </div>
-    <div class="stat">
-      <div class="stat-value">9.16</div>
-      <div class="stat-label">CGPA, NIT Silchar</div>
-    </div>
-    <div class="stat">
-      <div class="stat-value">Top 3%</div>
-      <div class="stat-label">LeetCode Global</div>
-    </div>
-    <div class="stat">
-      <div class="stat-value">1</div>
-      <div class="stat-label">Springer Publication</div>
-    </div>
-  </div>
-  <p>Software developer at SAP Labs building AI-powered systems that solve hard problems at scale. Published researcher in computational linguistics, National Institute of Technology Silchar CSE grad, and someone who genuinely enjoys going deep &mdash; whether that's enterprise architecture, NLP for underrepresented languages, or competitive programming.</p>
+      <hr />
 
-  <hr>
+      <!-- Experience -->
+      <h2>Experience</h2>
 
-  <!-- Experience -->
-  <h2>Experience</h2>
+      <div class="timeline">
+        <div class="exp-entry">
+          <div class="exp-date">Mar 2026 &ndash; Present</div>
+          <div class="exp-role">
+            Developer (SDE 2) &mdash; SAP Labs India, Bengaluru
+          </div>
+          <p>
+            Leading the integration of generative AI-driven production
+            scheduling and natural language interaction for complex supply chain
+            tasks. Designing high-performance workflows to improve user
+            decision-making in large-scale production planning. Collaborating on
+            cross-functional AI initiatives to streamline enterprise resource
+            management.
+          </p>
+        </div>
 
-  <div class="timeline">
-    <div class="exp-entry">
-      <div class="exp-date">2026 &ndash; Present</div>
-      <div class="exp-role">Developer (SDE 2) &mdash; SAP Labs India, Bengaluru</div>
-      <p>Leading the integration of generative AI-driven production scheduling and natural language interaction for complex supply chain tasks. Designing high-performance workflows to improve user decision-making in large-scale production planning. Collaborating on cross-functional AI initiatives to streamline enterprise resource management.</p>
-    </div>
+        <div class="exp-entry">
+          <div class="exp-date">Jul 2023 &ndash; Mar 2026</div>
+          <div class="exp-role">
+            Developer Associate (SDE 1) &mdash; SAP Labs India, Bengaluru
+          </div>
+          <p>
+            Engineered cross-module integration supporting approximately 20% of
+            SAP's total revenue. Developed "Flexible Constraints," significantly
+            increasing system efficiency and configurability for global
+            enterprise clients. Orchestrated migration of legacy reporting
+            infrastructures to modern systems, achieving a 3% reduction in
+            processing time. Standardized deployment workflows via CI/CD
+            pipelines on Azure, reducing average review time by two days per
+            sprint.
+          </p>
+        </div>
 
-    <div class="exp-entry">
-      <div class="exp-date">2023 &ndash; 2026</div>
-      <div class="exp-role">Developer Associate (SDE 1) &mdash; SAP Labs India, Bengaluru</div>
-      <p>Engineered cross-module integration supporting approximately 20% of SAP's total revenue. Developed "Flexible Constraints," significantly increasing system efficiency and configurability for global enterprise clients. Orchestrated migration of legacy reporting infrastructures to modern systems, achieving a 3% reduction in processing time. Standardized deployment workflows via CI/CD pipelines on Azure, reducing average review time by two days per sprint.</p>
-    </div>
+        <div class="exp-entry">
+          <div class="exp-date">Dec 2021 &ndash; May 2022</div>
+          <div class="exp-role">
+            Winter Intern (NLP) &mdash; NIT Silchar, Remote
+          </div>
+          <p>
+            Built Transformer-based NLP models for machine translation,
+            improving contextual accuracy by 17%. Enhanced model performance
+            through advanced linguistic feature engineering and
+            transformer-based architectures.
+          </p>
+        </div>
+      </div>
 
-    <div class="exp-entry">
-      <div class="exp-date">Dec 2021 &ndash; May 2022</div>
-      <div class="exp-role">Winter Intern (NLP) &mdash; NIT Silchar, Remote</div>
-      <p>Built Transformer-based NLP models for machine translation, improving contextual accuracy by 17%. Enhanced model performance through advanced linguistic feature engineering and transformer-based architectures.</p>
-    </div>
-  </div>
+      <hr />
 
-  <hr>
+      <!-- Education -->
+      <h2>Education</h2>
+      <div class="timeline">
+        <div class="exp-entry">
+          <div class="exp-date">2019 &ndash; 2023</div>
+          <div class="exp-role">
+            B.Tech, Computer Science &amp; Engineering &mdash; NIT Silchar
+          </div>
+          <p>
+            <strong style="color: var(--accent)">9.16 CGPA</strong> &middot;
+            National Institute of Technology, Silchar, Assam
+          </p>
+          <p class="edu-quip">
+            <i class="fas fa-skull"></i> Survived 4 years of algorithms, DBMS
+            &amp; operating systems &mdash; only to have AI threaten my job
+            anyway.
+          </p>
+        </div>
+      </div>
 
-  <!-- Skills -->
-  <h2>Skills</h2>
-  <div class="skills-grid">
-    <div class="skill-group">
-      <div class="skill-group-title"><i class="fas fa-code"></i> Languages</div>
-      <div class="skill-tags">
-        <span class="skill-tag"><i class="skill-icon" data-icon="C++">C++</i> C++</span>
-        <span class="skill-tag"><i class="fab fa-js"></i> JavaScript</span>
-        <span class="skill-tag"><i class="fab fa-js"></i> TypeScript</span>
-        <span class="skill-tag"><i class="fab fa-java"></i> Java</span>
-        <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
-        <span class="skill-tag"><i class="fab fa-golang"></i> Golang</span>
-        <span class="skill-tag"><i class="fas fa-database"></i> SQL</span>
+      <hr />
+
+      <!-- Skills -->
+      <h2>Skills</h2>
+      <div class="skills-grid">
+        <div class="skill-group">
+          <div class="skill-group-title">
+            <i class="fas fa-code"></i> Languages
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag"
+              ><i class="skill-icon" data-icon="C++">C++</i> C++</span
+            >
+            <span class="skill-tag"><i class="fab fa-js"></i> JavaScript</span>
+            <span class="skill-tag"><i class="fab fa-js"></i> TypeScript</span>
+            <span class="skill-tag"><i class="fab fa-java"></i> Java</span>
+            <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
+            <span class="skill-tag"><i class="fab fa-golang"></i> Golang</span>
+            <span class="skill-tag"><i class="fas fa-database"></i> SQL</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">
+            <i class="fas fa-server"></i> Technologies
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag"><i class="fas fa-cube"></i> SAPUI5</span>
+            <span class="skill-tag"><i class="fas fa-palette"></i> Fiori</span>
+            <span class="skill-tag"
+              ><i class="fab fa-microsoft"></i> Azure</span
+            >
+            <span class="skill-tag"><i class="fab fa-docker"></i> Docker</span>
+            <span class="skill-tag"
+              ><i class="fas fa-dharmachakra"></i> Kubernetes</span
+            >
+            <span class="skill-tag"
+              ><i class="fas fa-database"></i> PostgreSQL</span
+            >
+            <span class="skill-tag"><i class="fas fa-bolt"></i> Joule</span>
+            <span class="skill-tag"><i class="fas fa-robot"></i> Claude</span>
+            <span class="skill-tag"
+              ><i class="fas fa-plug"></i> MCP Servers</span
+            >
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">
+            <i class="fas fa-layer-group"></i> Frameworks
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag"><i class="fas fa-cube"></i> RAP</span>
+            <span class="skill-tag"><i class="fab fa-react"></i> React</span>
+            <span class="skill-tag"
+              ><i class="fab fa-node-js"></i> Node.js</span
+            >
+            <span class="skill-tag"
+              ><i class="fas fa-leaf"></i> Spring Boot</span
+            >
+            <span class="skill-tag"
+              ><i class="fas fa-arrows-spin"></i> CI/CD</span
+            >
+            <span class="skill-tag"
+              ><i class="fab fa-microsoft"></i> Azure DevOps</span
+            >
+          </div>
+        </div>
+        <div class="skill-group">
+          <div class="skill-group-title">
+            <i class="fas fa-brain"></i> Core CS
+          </div>
+          <div class="skill-tags">
+            <span class="skill-tag"><i class="fas fa-sitemap"></i> DSA</span>
+            <span class="skill-tag"
+              ><i class="fas fa-microchip"></i> Operating Systems</span
+            >
+            <span class="skill-tag"><i class="fas fa-table"></i> DBMS</span>
+            <span class="skill-tag"><i class="fas fa-shapes"></i> OOP</span>
+          </div>
+        </div>
+      </div>
+
+      <hr />
+
+      <!-- Research -->
+      <h2>Research</h2>
+      <p>
+        Published work on NLP and machine translation for low-resource Indian
+        languages.
+      </p>
+      <div
+        style="
+          margin: 1em 0;
+          padding: 1em 1.2em;
+          border-left: 3px solid var(--accent);
+          background: var(--research-bg);
+        "
+      >
+        <strong
+          >Investigation of negation effect for English&ndash;Assamese machine
+          translation</strong
+        ><br />
+        <span style="color: var(--text-muted); font-size: 0.9em"
+          >Sadhana (Springer), Vol. 47, 2022 &middot;
+          <a href="https://doi.org/10.1007/s12046-022-01965-5">DOI</a></span
+        >
+      </div>
+      <p><a href="papers.html">Read more about this research &rarr;</a></p>
+
+      <hr />
+
+      <!-- Projects -->
+      <h2>Projects</h2>
+      <ul>
+        <li>
+          <strong>Baan Flood Monitoring App</strong> &mdash; Geospatial alert
+          system using React, Node.js, and Google Maps API to track flood
+          hazards.
+        </li>
+        <li>
+          <strong>Open Source</strong> &mdash; Contributed to community-driven
+          projects in Python and C++ during the UICEIT Winter of Code.
+        </li>
+      </ul>
+
+      <hr />
+
+      <!-- Blog & Content -->
+      <h2>Blog & Content</h2>
+      <div class="content-cards">
+        <a
+          href="https://medium.com/@abinashgogoi"
+          class="medium-card"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div class="medium-card-left">
+            <i class="fab fa-medium medium-card-icon"></i>
+            <div>
+              <div class="medium-card-title">Read my writing on Medium</div>
+              <div class="medium-card-desc">
+                Thoughts on AI, system design, and the craft of building
+                software.
+              </div>
+            </div>
+          </div>
+          <div class="medium-card-cta">
+            <span>@abinashgogoi</span>
+            <i class="fas fa-arrow-right medium-arrow"></i>
+          </div>
+        </a>
+        <a
+          href="https://www.youtube.com/@smashandsweat"
+          class="medium-card yt-card"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div class="medium-card-left">
+            <i class="fab fa-youtube medium-card-icon yt-icon"></i>
+            <div>
+              <div class="medium-card-title">Code. Lift. Smash.</div>
+              <div class="medium-card-desc">
+                Where coding meets the grind. Subscribe on YouTube.
+              </div>
+            </div>
+          </div>
+          <div class="medium-card-cta yt-cta">
+            <span>@smashandsweat</span>
+            <i class="fas fa-arrow-right medium-arrow"></i>
+          </div>
+        </a>
+      </div>
+
+      <hr />
+
+      <!-- Footer -->
+      <div class="footer">
+        <p>0 frameworks. Pure HTML, CSS &amp; 15 lines of JS.</p>
+        <p>&copy; 2026 Abinash Gogoi</p>
       </div>
     </div>
-    <div class="skill-group">
-      <div class="skill-group-title"><i class="fas fa-server"></i> Technologies</div>
-      <div class="skill-tags">
-        <span class="skill-tag"><i class="fas fa-cube"></i> SAPUI5</span>
-        <span class="skill-tag"><i class="fas fa-palette"></i> Fiori</span>
-        <span class="skill-tag"><i class="fab fa-microsoft"></i> Azure</span>
-        <span class="skill-tag"><i class="fab fa-docker"></i> Docker</span>
-        <span class="skill-tag"><i class="fas fa-dharmachakra"></i> Kubernetes</span>
-        <span class="skill-tag"><i class="fas fa-database"></i> PostgreSQL</span>
-        <span class="skill-tag"><i class="fas fa-bolt"></i> Joule</span>
-        <span class="skill-tag"><i class="fas fa-robot"></i> Claude</span>
-        <span class="skill-tag"><i class="fas fa-plug"></i> MCP Servers</span>
-      </div>
-    </div>
-    <div class="skill-group">
-      <div class="skill-group-title"><i class="fas fa-layer-group"></i> Frameworks</div>
-      <div class="skill-tags">
-        <span class="skill-tag"><i class="fas fa-cube"></i> RAP</span>
-        <span class="skill-tag"><i class="fab fa-react"></i> React</span>
-        <span class="skill-tag"><i class="fab fa-node-js"></i> Node.js</span>
-        <span class="skill-tag"><i class="fas fa-leaf"></i> Spring Boot</span>
-        <span class="skill-tag"><i class="fas fa-arrows-spin"></i> CI/CD</span>
-        <span class="skill-tag"><i class="fab fa-microsoft"></i> Azure DevOps</span>
-      </div>
-    </div>
-    <div class="skill-group">
-      <div class="skill-group-title"><i class="fas fa-brain"></i> Core CS</div>
-      <div class="skill-tags">
-        <span class="skill-tag"><i class="fas fa-sitemap"></i> DSA</span>
-        <span class="skill-tag"><i class="fas fa-microchip"></i> Operating Systems</span>
-        <span class="skill-tag"><i class="fas fa-table"></i> DBMS</span>
-        <span class="skill-tag"><i class="fas fa-shapes"></i> OOP</span>
-      </div>
-    </div>
-  </div>
-
-  <hr>
-
-  <!-- Research -->
-  <h2>Research</h2>
-  <p>Published work on NLP and machine translation for low-resource Indian languages.</p>
-  <div style="margin: 1em 0; padding: 1em 1.2em; border-left: 3px solid #0066cc; background: #f9fbff;">
-    <strong>Investigation of negation effect for English&ndash;Assamese machine translation</strong><br>
-    <span style="color: #666; font-size: 0.9em;">Sadhana (Springer), Vol. 47, 2022 &middot; <a href="https://doi.org/10.1007/s12046-022-01965-5">DOI</a></span>
-  </div>
-  <p><a href="papers.html">Read more about this research &rarr;</a></p>
-
-  <hr>
-
-  <!-- Projects -->
-  <h2>Projects</h2>
-  <ul>
-    <li><strong>Baan Flood Monitoring App</strong> &mdash; Geospatial alert system using React, Node.js, and Google Maps API to track flood hazards.</li>
-    <li><strong>Open Source</strong> &mdash; Contributed to community-driven projects in Python and C++ during the UICEIT Winter of Code.</li>
-  </ul>
-
-  <hr>
-
-  <!-- Blog -->
-  <h2>Blog</h2>
-  <p>Occasional writing on technology, AI, and the craft of building things. <a href="blog/index.html">View all posts &rarr;</a></p>
-  <ul class="post-list">
-    <li><span class="post-date">2026-04-10</span> <a href="blog/index.html">Understanding Transformer Architecture</a></li>
-    <li><span class="post-date">2026-04-05</span> <a href="blog/index.html">My Journey into AI Research</a></li>
-    <li><span class="post-date">2026-03-28</span> <a href="blog/index.html">Building a Static Website Like It's 1999</a></li>
-  </ul>
-
-  <hr>
-
-  <!-- Footer -->
-  <div class="footer">
-    <p>0 frameworks. Pure HTML &amp; CSS.</p>
-    <p>&copy; 2026 Abinash Gogoi</p>
-  </div>
-
-</div>
-</body>
+    <script>
+      function toggleTheme() {
+        const isDark =
+          document.documentElement.getAttribute("data-theme") === "dark";
+        const theme = isDark ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", theme);
+        localStorage.setItem("theme", theme);
+      }
+      (function () {
+        const saved = localStorage.getItem("theme");
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        const theme = saved || (prefersDark ? "dark" : "light");
+        if (theme === "dark")
+          document.documentElement.setAttribute("data-theme", "dark");
+      })();
+      (function () {
+        const start = new Date(2023, 6, 1);
+        const now = new Date();
+        const years = ((now - start) / (365.25 * 24 * 60 * 60 * 1000)).toFixed(
+          1,
+        );
+        document.getElementById("sap-years").textContent = years + "+";
+      })();
+    </script>
+  </body>
 </html>
