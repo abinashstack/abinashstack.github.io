@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Abinash Gogoi</title>
-    <link rel="stylesheet" href="style.css?v=2026-07-17-projects" />
+    <link rel="stylesheet" href="style.css?v=2026-07-17-stats" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -263,6 +263,7 @@
         <a
           href="https://github.com/abinashstack/omp-voice-commands"
           class="project-card"
+          data-repo="abinashstack/omp-voice-commands"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -270,6 +271,7 @@
             <div class="project-card-title">
               <i class="fas fa-microphone"></i>
               <span>omp-voice-commands</span>
+              <span class="project-card-badge">NEW</span>
             </div>
             <i class="fab fa-github project-card-link"></i>
           </div>
@@ -284,14 +286,16 @@
           <div class="project-card-tags">
             <span class="skill-tag"><i class="fab fa-js"></i> TypeScript</span>
             <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
-            <span class="skill-tag"><i class="fas fa-waveform-lines"></i> Whisper</span>
-            <span class="skill-tag"><i class="fas fa-microphone-lines"></i> Voice UX</span>
+            <span class="skill-tag"><i class="fas fa-microphone-lines"></i> Whisper</span>
+            <span class="skill-tag"><i class="fas fa-wand-magic-sparkles"></i> Wake&nbsp;words</span>
           </div>
+          <div class="project-card-stats" aria-hidden="true"></div>
         </a>
 
         <a
           href="https://github.com/abinashstack/indmoney-watch"
           class="project-card"
+          data-repo="abinashstack/indmoney-watch"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -299,6 +303,7 @@
             <div class="project-card-title">
               <i class="fas fa-chart-line"></i>
               <span>indmoney-watch</span>
+              <span class="project-card-badge">NEW</span>
             </div>
             <i class="fab fa-github project-card-link"></i>
           </div>
@@ -313,11 +318,13 @@
             <span class="skill-tag"><i class="fas fa-plug"></i> MCP</span>
             <span class="skill-tag"><i class="fas fa-bell"></i> SwiftBar</span>
           </div>
+          <div class="project-card-stats" aria-hidden="true"></div>
         </a>
 
         <a
           href="https://github.com/abinashstack/flood-monitoring"
           class="project-card"
+          data-repo="abinashstack/flood-monitoring"
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -337,6 +344,7 @@
             <span class="skill-tag"><i class="fab fa-node-js"></i> Node.js</span>
             <span class="skill-tag"><i class="fas fa-map-location-dot"></i> Google Maps</span>
           </div>
+          <div class="project-card-stats" aria-hidden="true"></div>
         </a>
 
         <a
@@ -416,7 +424,7 @@
 
       <!-- Footer -->
       <div class="footer">
-        <p>0 frameworks. Pure HTML, CSS &amp; 15 lines of JS.</p>
+        <p>0 frameworks. Pure HTML, CSS &amp; a sprinkle of JS.</p>
         <p>&copy; 2026 Abinash Gogoi</p>
       </div>
     </div>
@@ -444,6 +452,78 @@
           1,
         );
         document.getElementById("sap-years").textContent = years + "+";
+      })();
+      (function () {
+        // Fetch star count + last-push for cards with data-repo, cache 1h.
+        const CACHE_KEY = "gh:repo-stats:v1";
+        const TTL_MS = 60 * 60 * 1000;
+        const cards = document.querySelectorAll(".project-card[data-repo]");
+        if (!cards.length) return;
+        let cache = {};
+        try {
+          cache = JSON.parse(localStorage.getItem(CACHE_KEY) || "{}");
+        } catch (_) {}
+        function ago(iso) {
+          const secs = (Date.now() - new Date(iso).getTime()) / 1000;
+          if (secs < 3600) return Math.max(1, Math.round(secs / 60)) + "m ago";
+          if (secs < 86400) return Math.round(secs / 3600) + "h ago";
+          if (secs < 2592000) return Math.round(secs / 86400) + "d ago";
+          if (secs < 31536000) return Math.round(secs / 2592000) + "mo ago";
+          return Math.round(secs / 31536000) + "y ago";
+        }
+        function render(el, data) {
+          const parts = [];
+          if (data && typeof data.stars === "number" && data.stars > 0) {
+            parts.push(
+              '<span class="project-card-stat stat-stars"><i class="fas fa-star"></i>' +
+                data.stars +
+                "</span>",
+            );
+          }
+          if (data && data.pushed) {
+            parts.push(
+              '<span class="project-card-stat"><i class="fas fa-clock-rotate-left"></i>Updated ' +
+                ago(data.pushed) +
+                "</span>",
+            );
+          }
+          if (data && data.language) {
+            parts.push(
+              '<span class="project-card-stat"><i class="fas fa-circle" style="font-size:0.55em"></i>' +
+                data.language +
+                "</span>",
+            );
+          }
+          el.innerHTML = parts.join("");
+        }
+        cards.forEach((card) => {
+          const repo = card.getAttribute("data-repo");
+          const slot = card.querySelector(".project-card-stats");
+          if (!slot) return;
+          const cached = cache[repo];
+          if (cached && Date.now() - cached.ts < TTL_MS) {
+            render(slot, cached.data);
+            return;
+          }
+          fetch("https://api.github.com/repos/" + repo, {
+            headers: { Accept: "application/vnd.github+json" },
+          })
+            .then((r) => (r.ok ? r.json() : null))
+            .then((j) => {
+              if (!j) return;
+              const data = {
+                stars: j.stargazers_count,
+                pushed: j.pushed_at,
+                language: j.language,
+              };
+              render(slot, data);
+              cache[repo] = { ts: Date.now(), data };
+              try {
+                localStorage.setItem(CACHE_KEY, JSON.stringify(cache));
+              } catch (_) {}
+            })
+            .catch(() => {});
+        });
       })();
     </script>
   </body>
