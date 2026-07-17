@@ -318,6 +318,103 @@ hr::before {
   gap: 0.8em;
 }
 
+/* Project cards */
+.project-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1em;
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7em;
+  padding: 1.1em 1.3em;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: 0 2px 8px var(--shadow);
+  text-decoration: none;
+  color: var(--text);
+  transition:
+    box-shadow 0.2s,
+    transform 0.2s,
+    border-color 0.2s;
+}
+
+.project-card:hover {
+  box-shadow: 0 4px 20px var(--accent-shadow);
+  transform: translateY(-2px);
+  border-color: var(--accent);
+  text-decoration: none;
+}
+
+.project-card:hover .project-card-link {
+  color: var(--accent);
+  transform: translate(2px, -2px);
+}
+
+.project-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6em;
+}
+
+.project-card-title {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  font-weight: 600;
+  font-size: 1.02em;
+  color: var(--text-heading);
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  letter-spacing: -0.01em;
+}
+
+.project-card-title > i {
+  color: var(--accent);
+  font-size: 0.95em;
+}
+
+.project-card-link {
+  color: var(--text-muted-3);
+  font-size: 1.1em;
+  transition:
+    color 0.2s,
+    transform 0.2s;
+}
+
+.project-card-desc {
+  font-size: 0.9em;
+  color: var(--text-secondary);
+  margin: 0;
+  line-height: 1.55;
+}
+
+.project-card-desc a {
+  color: var(--accent);
+}
+
+.project-card-desc em {
+  color: var(--text-heading);
+  font-style: italic;
+}
+
+.project-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35em;
+  margin-top: auto;
+}
+
+@media (max-width: 700px) {
+  .project-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Education quip */
 .edu-quip {
   font-size: 0.85em;
