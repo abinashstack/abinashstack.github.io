@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Form Checker</title>
+  <meta name="description" content="Analyze exercise form with pose estimation, right in your browser. No uploads, BYOK for LLM coach." />
+  <link rel="stylesheet" href="./assets/css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🏋️%3C/text%3E%3C/svg%3E" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="logo">
+      <span class="dot"></span>
+      <span>Form&nbsp;Checker</span>
+      <span id="header-coach-status" class="pill" title="Click ⚙︎ coach to change">coach · loading…</span>
+    </div>
+    <div class="topbar-right">
+      <a class="ghost" href="/" title="Back to portfolio">← portfolio</a>
+      <a class="ghost" href="https://huggingface.co/spaces/abinashstack/form-checker"
+         target="_blank" rel="noopener" title="View source on Hugging Face">source</a>
+      <button id="settings-btn" class="ghost" title="Coach settings">⚙︎ coach</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>See your lift the way a coach does.</h1>
+      <p class="sub">Pose runs on your device. Video never leaves your browser.</p>
+    </section>
+
+    <!-- First-visit onboarding banner. Dismisses to localStorage. -->
+    <section id="welcome" class="banner hidden">
+      <div class="banner-body">
+        <strong>How this works</strong>
+        <p>
+          Pose extraction happens <em>in your browser</em> — video never uploads anywhere.
+          You get skeleton overlay, rep detection, and deterministic form cues out of the box.
+        </p>
+        <p>
+          For LLM-narrated coach feedback, click <strong>⚙︎ coach</strong> and paste a
+          <a href="https://console.groq.com/keys" target="_blank" rel="noopener">free Groq API key</a>.
+          The key stays in this browser only — it's sent from your device directly to Groq,
+          never routed through any server we run.
+        </p>
+      </div>
+      <div class="banner-actions">
+        <button id="welcome-setup" class="primary">Set up coach</button>
+        <button id="welcome-skip" class="ghost">Skip — use heuristics</button>
+      </div>
+    </section>
+
+    <!-- STEP 1: upload -->
+    <section id="uploader" class="card">
+      <div class="row">
+        <label class="field">
+          <span>Exercise</span>
+          <select id="exercise"></select>
+        </label>
+      </div>
+
+      <div id="drop" class="drop" tabindex="0">
+        <input id="file" type="file" accept="video/mp4,video/quicktime,video/webm" hidden />
+        <div class="drop-inner">
+          <svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true">
+            <path fill="currentColor" d="M12 3l4 4h-3v6h-2V7H8l4-4zm-7 14h14v2H5v-2z"/>
+          </svg>
+          <p><strong>Drop a video here</strong> or click to browse</p>
+          <p class="hint">mp4 · mov · webm — pose runs locally, no upload</p>
+        </div>
+      </div>
+
+      <div id="loader-msg" class="muted small">Loading pose model…</div>
+      <button id="analyze" class="primary" disabled>Analyze</button>
+    </section>
+
+    <!-- STEP 2: live analysis -->
+    <section id="analysis" class="hidden">
+      <div class="card">
+        <div class="video-wrap">
+          <video id="video" playsinline muted></video>
+          <canvas id="overlay"></canvas>
+        </div>
+        <div class="controls">
+          <button id="play-pause" class="ghost">Pause</button>
+          <span id="live-hud" class="muted small">reps 0 · —</span>
+          <button id="stop" class="primary">End &amp; review</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3: results -->
+    <section id="results" class="hidden">
+      <div class="grid">
+        <div class="card">
+          <h2>Coach summary</h2>
+          <div id="coach-badge"></div>
+          <p id="summary" class="muted">—</p>
+
+          <div id="fixes-wrap" class="hidden">
+            <h3>Fixes <span class="pill warn">priority</span></h3>
+            <ul id="fixes"></ul>
+          </div>
+
+          <div id="strengths-wrap" class="hidden">
+            <h3>Strengths <span class="pill good">nice</span></h3>
+            <ul id="strengths"></ul>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Reps <span id="rep-count-badge" class="pill good"></span></h2>
+          <div class="table-wrap"><table id="reps-table"></table></div>
+        </div>
+      </div>
+
+      <button id="restart" class="ghost">Analyze another clip</button>
+    </section>
+
+    <section id="error" class="card danger hidden">
+      <h3>Something went wrong</h3>
+      <p id="error-msg"></p>
+      <button id="error-restart" class="ghost">Try again</button>
+    </section>
+  </main>
+
+  <!-- Coach settings modal -->
+  <dialog id="settings" class="settings-dialog">
+    <form method="dialog">
+      <h3>Coach settings</h3>
+
+      <p class="muted small">
+        The <em>heuristic coach</em> works offline and gives concrete cues based on
+        joint-angle thresholds. For LLM-narrated feedback, add a Groq API key.
+      </p>
+
+      <ol class="help small">
+        <li>Sign up free at <a href="https://console.groq.com" target="_blank" rel="noopener">console.groq.com</a> (no card required)</li>
+        <li>Create a key at <a href="https://console.groq.com/keys" target="_blank" rel="noopener">Groq Console → API Keys</a></li>
+        <li>Paste it below — it stays in <em>your</em> browser's localStorage and is sent directly to Groq</li>
+      </ol>
+
+      <label class="field">
+        <span>Groq API key</span>
+        <input id="groq-key" type="password" placeholder="gsk_…" autocomplete="off" spellcheck="false" />
+      </label>
+
+      <label class="field">
+        <span>Model</span>
+        <select id="groq-model">
+          <option value="llama-3.3-70b-versatile" selected>llama-3.3-70b-versatile — balanced</option>
+          <option value="llama-3.1-8b-instant">llama-3.1-8b-instant — fastest</option>
+          <option value="openai/gpt-oss-120b">openai/gpt-oss-120b — biggest</option>
+        </select>
+      </label>
+
+      <div id="validate-msg" class="validate hidden"></div>
+
+      <div class="settings-actions">
+        <button id="clear-key" class="ghost" value="clear">Clear key</button>
+        <button id="test-key" class="ghost" value="test" type="button">Test key</button>
+        <button class="primary" value="save">Save</button>
+      </div>
+
+      <p class="muted small privacy-note">
+        Privacy: the key is stored in <code>localStorage</code>. Requests go browser →
+        <code>api.groq.com</code>. Clear anytime from this dialog.
+        <a href="https://huggingface.co/spaces/abinashstack/form-checker/blob/main/assets/js/feedback.js"
+           target="_blank" rel="noopener">Verify in source</a>.
+      </p>
+    </form>
+  </dialog>
+
+  <footer>
+    <span>MediaPipe Pose runs locally via WebGPU/WASM. No video is uploaded.
+    Coach LLM is optional — BYOK, key stays in your browser.</span>
+  </footer>
+
+  <script type="module" src="./assets/js/main.js"></script>
+</body>
+</html>
