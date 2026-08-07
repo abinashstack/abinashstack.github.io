@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz · How well do you know Abinash?</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐾</text></svg>" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'JetBrains Mono', 'SF Mono', 'Fira Code', monospace;
+      background: #0d1117;
+      color: #c9d1d9;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem;
+    }
+    .terminal {
+      width: 100%;
+      max-width: 700px;
+      background: #161b22;
+      border: 1px solid #30363d;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 40px rgba(77, 159, 255, 0.08);
+    }
+    .titlebar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 16px;
+      background: #1c2128;
+      border-bottom: 1px solid #30363d;
+    }
+    .dot { width: 12px; height: 12px; border-radius: 50%; }
+    .dot-r { background: #f85149; }
+    .dot-y { background: #d29922; }
+    .dot-g { background: #3fb950; }
+    .titlebar span { margin-left: auto; font-size: 0.75em; color: #484f58; }
+    .body { padding: 1.5rem; min-height: 400px; }
+    .prompt { color: #3fb950; }
+    .muted { color: #484f58; }
+    .accent { color: #58a6ff; }
+    .gold { color: #d29922; }
+    h2 { font-size: 1.1em; margin-bottom: 1em; font-weight: 600; }
+    .question { margin-bottom: 1.2em; line-height: 1.5; }
+    .options { display: flex; flex-direction: column; gap: 0.5em; }
+    .opt-btn {
+      background: #21262d;
+      border: 1px solid #30363d;
+      color: #c9d1d9;
+      padding: 0.8em 1em;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.9em;
+      cursor: pointer;
+      text-align: left;
+      transition: border-color 0.2s, background 0.2s, transform 0.1s;
+    }
+    .opt-btn:hover { border-color: #58a6ff; background: #1c2128; }
+    .opt-btn:active { transform: scale(0.98); }
+    .opt-btn.correct { border-color: #3fb950; background: #0d2818; color: #3fb950; }
+    .opt-btn.wrong { border-color: #f85149; background: #2d1214; color: #f85149; }
+    .opt-btn:disabled { cursor: default; opacity: 0.7; }
+    .fact {
+      margin-top: 1em;
+      padding: 0.8em 1em;
+      background: #1c2128;
+      border-left: 3px solid #58a6ff;
+      border-radius: 4px;
+      font-size: 0.85em;
+      line-height: 1.5;
+      animation: fadeIn 0.3s;
+    }
+    .next-btn {
+      margin-top: 1.2em;
+      background: #58a6ff;
+      color: #0d1117;
+      border: none;
+      padding: 0.7em 1.5em;
+      border-radius: 8px;
+      font-family: inherit;
+      font-size: 0.9em;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .next-btn:hover { background: #79c0ff; }
+    .score {
+      text-align: center;
+      padding: 2em 1em;
+    }
+    .score h2 { font-size: 1.4em; margin-bottom: 0.5em; }
+    .score .big { font-size: 3em; font-weight: 700; color: #3fb950; }
+    .score a {
+      display: inline-block;
+      margin-top: 1.5em;
+      color: #58a6ff;
+      text-decoration: none;
+      font-size: 0.9em;
+    }
+    .score a:hover { text-decoration: underline; }
+    .progress {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 1.2em;
+    }
+    .progress-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: #30363d;
+      transition: background 0.3s;
+    }
+    .progress-dot.done { background: #3fb950; }
+    .progress-dot.wrong-dot { background: #f85149; }
+    .progress-dot.current { background: #58a6ff; box-shadow: 0 0 6px #58a6ff; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    .back { display: block; text-align: center; margin-top: 1.5rem; color: #484f58; text-decoration: none; font-size: 0.85em; }
+    .back:hover { color: #c9d1d9; }
+    .kbd { display: inline-block; padding: 0.1em 0.4em; background: #21262d; border: 1px solid #30363d; border-radius: 4px; font-size: 0.8em; margin: 0 2px; }
+  </style>
+</head>
+<body>
+  <div class="terminal">
+    <div class="titlebar">
+      <div class="dot dot-r"></div>
+      <div class="dot dot-y"></div>
+      <div class="dot dot-g"></div>
+      <span>quiz — abinash</span>
+    </div>
+    <div class="body" id="quiz-body">
+      <div class="progress" id="progress"></div>
+      <div id="content"></div>
+    </div>
+  </div>
+  <a href="/" class="back">← back to portfolio</a>
+
+  <script>
+    var QUESTIONS = [
+      {
+        q: "What company does Abinash work at?",
+        opts: ["Google", "SAP Labs", "Microsoft", "Amazon"],
+        ans: 1,
+        fact: "SDE2 at SAP Labs India, Bengaluru. Works on PP/DS production scheduling + AI agents."
+      },
+      {
+        q: "What's Abinash's deadlift PR?",
+        opts: ["80 kg", "100 kg", "130 kg", "160 kg"],
+        ans: 2,
+        fact: "130 kg deadlift, 120 kg squat. 'My code isn't the only thing I push to production.'"
+      },
+      {
+        q: "Which satellite data does Crop Insurance Proof use?",
+        opts: ["Landsat-8", "Sentinel-2", "MODIS", "Planet Labs"],
+        ans: 1,
+        fact: "Free Sentinel-2 imagery. Computes NDVI change + cross-references Open-Meteo weather to prove crop damage causality."
+      },
+      {
+        q: "How fast does omp-voice-commands deliver dictation after warmup?",
+        opts: ["500 ms", "80 ms", "2 seconds", "5 seconds"],
+        ans: 1,
+        fact: "Down from a 5-second cold start per click. Uses a persistent Whisper worker process that stays warm."
+      },
+      {
+        q: "What's the Springer paper about?",
+        opts: ["Computer vision", "Negation in English–Assamese MT", "Sorting algorithms", "Blockchain scalability"],
+        ans: 1,
+        fact: "Published in Sadhana (Springer), Vol. 47, 2022. Investigates how negation constructs get lost in low-resource machine translation."
+      },
+      {
+        q: "What AI model does Pashu-Mitra use for triage?",
+        opts: ["GPT-4o", "Gemini 2.5 Flash", "Claude 4.5", "Llama 3"],
+        ans: 1,
+        fact: "With structured JSON output + enum-constrained species/injury/priority. The photo never leaves the reporter's device until they tap Submit."
+      },
+      {
+        q: "What's Abinash's CGPA from NIT Silchar?",
+        opts: ["8.02", "9.16", "7.45", "9.81"],
+        ans: 1,
+        fact: "B.Tech CSE, NIT Silchar, 2019–2023. Top 3% on LeetCode globally."
+      },
+      {
+        q: "What does the AI Form Checker run on client-side?",
+        opts: ["TensorFlow.js", "MediaPipe + WebGPU", "OpenCV.js", "PyTorch Mobile"],
+        ans: 1,
+        fact: "MediaPipe PoseLandmarker in WASM + WebGPU. Video never uploads — skeleton extraction happens entirely in the browser."
+      },
+      {
+        q: "What language is indmoney-watch written in?",
+        opts: ["Python", "Rust", "Go", "TypeScript"],
+        ans: 2,
+        fact: "Go CLI + SwiftBar menu bar app. Talks to the official INDmoney MCP server, fires native macOS notifications."
+      },
+      {
+        q: "How many Claude Code skills does loop-for-claude ship?",
+        opts: ["5", "12", "25+", "3"],
+        ans: 2,
+        fact: "30+ skills: PR review, repo review, release notes, bug repro, docs scaffold, dependency audit, weekly report, and more. Each is a self-contained slash command."
+      }
+    ];
+
+    var state = { current: 0, score: 0, answers: [] };
+
+    function render() {
+      var prog = document.getElementById("progress");
+      prog.innerHTML = QUESTIONS.map(function (_, i) {
+        var cls = "progress-dot";
+        if (i < state.current) cls += state.answers[i] ? " done" : " wrong-dot";
+        else if (i === state.current) cls += " current";
+        return '<div class="' + cls + '"></div>';
+      }).join("");
+
+      var content = document.getElementById("content");
+      if (state.current >= QUESTIONS.length) {
+        var pct = Math.round((state.score / QUESTIONS.length) * 100);
+        var msg = pct >= 80 ? "You know me well!" : pct >= 50 ? "Not bad — you were paying attention." : "Looks like you haven't stalked my GitHub enough.";
+        content.innerHTML =
+          '<div class="score">' +
+            '<h2>Quiz complete</h2>' +
+            '<div class="big">' + state.score + '/' + QUESTIONS.length + '</div>' +
+            '<p style="margin-top:0.5em;color:#484f58">' + msg + '</p>' +
+            '<a href="/">← Explore the portfolio</a> · <a href="javascript:void(0)" onclick="restart()">↺ Try again</a>' +
+          '</div>';
+        return;
+      }
+      var q = QUESTIONS[state.current];
+      content.innerHTML =
+        '<h2><span class="prompt">$ </span>Question ' + (state.current + 1) + '/' + QUESTIONS.length + '</h2>' +
+        '<div class="question">' + q.q + '</div>' +
+        '<div class="options" id="options">' +
+          q.opts.map(function (o, i) {
+            return '<button class="opt-btn" data-idx="' + i + '"><span class="kbd">' + (i + 1) + '</span> ' + o + '</button>';
+          }).join("") +
+        '</div>';
+      document.querySelectorAll(".opt-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () { answer(Number(btn.dataset.idx)); });
+      });
+    }
+
+    function answer(idx) {
+      var q = QUESTIONS[state.current];
+      var correct = idx === q.ans;
+      state.answers.push(correct);
+      if (correct) state.score++;
+      var btns = document.querySelectorAll(".opt-btn");
+      btns.forEach(function (b, i) {
+        b.disabled = true;
+        if (i === q.ans) b.classList.add("correct");
+        else if (i === idx) b.classList.add("wrong");
+      });
+      var opts = document.getElementById("options");
+      opts.insertAdjacentHTML("afterend",
+        '<div class="fact"><span class="accent">💡 </span>' + q.fact + '</div>' +
+        '<button class="next-btn" id="next-btn">' + (state.current < QUESTIONS.length - 1 ? 'Next →' : 'See results') + '</button>'
+      );
+      document.getElementById("next-btn").addEventListener("click", function () {
+        state.current++;
+        render();
+      });
+      // Update progress
+      var dots = document.querySelectorAll(".progress-dot");
+      if (dots[state.current]) {
+        dots[state.current].classList.remove("current");
+        dots[state.current].classList.add(correct ? "done" : "wrong-dot");
+      }
+    }
+
+    function restart() {
+      state = { current: 0, score: 0, answers: [] };
+      render();
+    }
+
+    // Keyboard shortcuts: 1-4 to answer, Enter for next
+    document.addEventListener("keydown", function (e) {
+      if (e.key >= "1" && e.key <= "4") {
+        var btns = document.querySelectorAll(".opt-btn:not(:disabled)");
+        var idx = Number(e.key) - 1;
+        if (btns[idx]) btns[idx].click();
+      }
+      if (e.key === "Enter") {
+        var next = document.getElementById("next-btn");
+        if (next) next.click();
+      }
+    });
+
+    render();
+  </script>
+</body>
+</html>

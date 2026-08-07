@@ -1277,3 +1277,17 @@ body {
 .pulse-dot-blue {
   background: var(--accent);
 }
+
+/* ─── Quiz card accent ─── */
+.quiz-card:hover {
+  border-color: #3fb950;
+  box-shadow: 0 4px 20px rgba(63, 185, 80, 0.12);
+}
+
+.quiz-card .medium-card-icon {
+  color: #3fb950;
+}
+
+.quiz-card .medium-card-cta {
+  color: #3fb950;
+}
