@@ -3,8 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta property="og:title" content="Abinash Gogoi — Software Engineer" />
+    <meta property="og:description" content="SDE2 at SAP Labs. Builds things that quietly work." />
+    <meta property="og:image" content="https://avatars.githubusercontent.com/u/54808515?s=400" />
+    <meta property="og:url" content="https://abinashstack.github.io" />
+    <meta name="twitter:card" content="summary" />
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
     <title>Abinash Gogoi</title>
-    <link rel="stylesheet" href="style.css?v=2026-07-17-stats" />
+    <link rel="stylesheet" href="style.css?v=2026-08-07-glow" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -631,6 +637,65 @@
               } catch (_) {}
             })
             .catch(() => {});
+        });
+      })();
+    </script>
+    <script>
+      // Scroll reveal
+      (function () {
+        var els = document.querySelectorAll(
+          "h2, .project-card, .medium-card, .exp-entry, .skill-group, .about-stats"
+        );
+        els.forEach(function (el) {
+          el.classList.add("reveal");
+        });
+        var obs = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (e.isIntersecting) {
+                e.target.classList.add("visible");
+                obs.unobserve(e.target);
+              }
+            });
+          },
+          { threshold: 0.15 }
+        );
+        els.forEach(function (el) {
+          obs.observe(el);
+        });
+      })();
+
+      // Animated count-up for stat values
+      (function () {
+        var stats = document.querySelectorAll(".stat-value");
+        var obs = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (e) {
+              if (!e.isIntersecting) return;
+              obs.unobserve(e.target);
+              var el = e.target;
+              var raw = el.textContent.trim();
+              var num = parseFloat(raw);
+              if (isNaN(num)) return;
+              var suffix = raw.replace(/[\d.]+/, "");
+              var isFloat = raw.indexOf(".") !== -1;
+              var duration = 800;
+              var start = performance.now();
+              function tick(now) {
+                var t = Math.min((now - start) / duration, 1);
+                t = 1 - Math.pow(1 - t, 3); // easeOutCubic
+                var val = isFloat ? (num * t).toFixed(2) : Math.round(num * t);
+                el.textContent = val + suffix;
+                if (t < 1) requestAnimationFrame(tick);
+              }
+              el.textContent = (isFloat ? "0.00" : "0") + suffix;
+              requestAnimationFrame(tick);
+            });
+          },
+          { threshold: 0.5 }
+        );
+        stats.forEach(function (s) {
+          obs.observe(s);
         });
       })();
     </script>
