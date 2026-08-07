@@ -261,33 +261,31 @@
       <h2>Projects</h2>
       <div class="project-cards">
         <a
-          href="https://github.com/abinashstack/omp-voice-commands"
+          href="https://github.com/abinashstack/pashu-mitra"
           class="project-card"
-          data-repo="abinashstack/omp-voice-commands"
+          data-repo="abinashstack/pashu-mitra"
           target="_blank"
           rel="noopener noreferrer"
         >
           <div class="project-card-head">
             <div class="project-card-title">
-              <i class="fas fa-microphone"></i>
-              <span>omp-voice-commands</span>
+              <i class="fas fa-paw"></i>
+              <span>Pashu-Mitra</span>
               <span class="project-card-badge">NEW</span>
             </div>
             <i class="fab fa-github project-card-link"></i>
           </div>
           <p class="project-card-desc">
-            Persistent-Whisper voice input + wake-word command router for
-            <strong>omp</strong>. Replaces a 5-second cold start per click with
-            a long-lived worker &mdash; dictation lands in the editor in
-            ~80&nbsp;ms after warmup. Wake words like
-            <em>&ldquo;computer, plan mode&rdquo;</em> dispatch slash commands
-            directly.
+            One-tap injured-animal reporting. Snap a photo &rarr; Gemini 2.5
+            Flash auto-scores species, injury and priority &rarr; PostGIS
+            dedupe collapses same-spot sightings inside 100&nbsp;m /
+            6&nbsp;h &rarr; nearest vet sees it on a live map.
           </p>
           <div class="project-card-tags">
-            <span class="skill-tag"><i class="fab fa-js"></i> TypeScript</span>
-            <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
-            <span class="skill-tag"><i class="fas fa-microphone-lines"></i> Whisper</span>
-            <span class="skill-tag"><i class="fas fa-wand-magic-sparkles"></i> Wake&nbsp;words</span>
+            <span class="skill-tag"><i class="fab fa-js"></i> Next.js</span>
+            <span class="skill-tag"><i class="fas fa-database"></i> Supabase</span>
+            <span class="skill-tag"><i class="fas fa-map-location-dot"></i> PostGIS</span>
+            <span class="skill-tag"><i class="fas fa-wand-magic-sparkles"></i> Gemini</span>
           </div>
           <div class="project-card-stats" aria-hidden="true"></div>
         </a>
@@ -354,6 +352,126 @@
         </a>
 
         <a
+          href="https://github.com/abinashstack/ai-agriculture-ideas/tree/main/projects/crop-insurance-proof"
+          class="project-card"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div class="project-card-head">
+            <div class="project-card-title">
+              <i class="fas fa-satellite"></i>
+              <span>Crop Insurance Proof</span>
+              <span class="project-card-badge">NEW</span>
+            </div>
+            <i class="fab fa-github project-card-link"></i>
+          </div>
+          <p class="project-card-desc">
+            Satellite-based crop damage evidence for PMFBY claims. Fetches
+            Sentinel-2 imagery before and after a weather event, computes NDVI
+            change, correlates with Open-Meteo / IMD weather, and generates a
+            timestamped PDF with severity + causal-confidence score for the
+            farmer to attach to the claim.
+          </p>
+          <div class="project-card-tags">
+            <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
+            <span class="skill-tag"><i class="fas fa-satellite-dish"></i> Sentinel-2</span>
+            <span class="skill-tag"><i class="fas fa-leaf"></i> NDVI</span>
+            <span class="skill-tag"><i class="fas fa-file-pdf"></i> FastAPI</span>
+          </div>
+          <div class="project-card-stats" aria-hidden="true"></div>
+        </a>
+
+        <a
+          href="https://github.com/abinashstack/omp-aicore"
+          class="project-card"
+          data-repo="abinashstack/omp-aicore"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div class="project-card-head">
+            <div class="project-card-title">
+              <i class="fas fa-network-wired"></i>
+              <span>omp-aicore</span>
+              <span class="project-card-badge">NEW</span>
+            </div>
+            <i class="fab fa-github project-card-link"></i>
+          </div>
+          <p class="project-card-desc">
+            Local proxy that speaks SAP AI Core deployments as native
+            Anthropic and OpenAI APIs. Point Claude Code, omp or any
+            Anthropic-shaped client at <code>localhost</code> and get SAP
+            enterprise LLM auth (client-credentials + destination service) for
+            free.
+          </p>
+          <div class="project-card-tags">
+            <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
+            <span class="skill-tag"><i class="fas fa-plug"></i> Anthropic&nbsp;API</span>
+            <span class="skill-tag"><i class="fas fa-shield-halved"></i> SAP&nbsp;AI&nbsp;Core</span>
+          </div>
+          <div class="project-card-stats" aria-hidden="true"></div>
+        </a>
+
+        <a
+          href="https://github.com/abinashstack/loop-for-claude"
+          class="project-card"
+          data-repo="abinashstack/loop-for-claude"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div class="project-card-head">
+            <div class="project-card-title">
+              <i class="fas fa-arrows-rotate"></i>
+              <span>loop-for-claude</span>
+              <span class="project-card-badge">NEW</span>
+            </div>
+            <i class="fab fa-github project-card-link"></i>
+          </div>
+          <p class="project-card-desc">
+            Cross-platform Claude Code skills for repeatable engineering
+            loops &mdash; PR review, repo review, release notes, bug repro,
+            docs scaffold, dependency audit, weekly report, and 25+ more.
+            Each skill is a self-contained slash command.
+          </p>
+          <div class="project-card-tags">
+            <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
+            <span class="skill-tag"><i class="fas fa-robot"></i> Claude&nbsp;Code</span>
+            <span class="skill-tag"><i class="fas fa-terminal"></i> CLI</span>
+          </div>
+          <div class="project-card-stats" aria-hidden="true"></div>
+        </a>
+
+        <a
+          href="https://github.com/abinashstack/omp-voice-commands"
+          class="project-card"
+          data-repo="abinashstack/omp-voice-commands"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <div class="project-card-head">
+            <div class="project-card-title">
+              <i class="fas fa-microphone"></i>
+              <span>omp-voice-commands</span>
+            </div>
+            <i class="fab fa-github project-card-link"></i>
+          </div>
+          <p class="project-card-desc">
+            Persistent-Whisper voice input + wake-word command router for
+            <strong>omp</strong>. Replaces a 5-second cold start per click with
+            a long-lived worker &mdash; dictation lands in the editor in
+            ~80&nbsp;ms after warmup. Wake words like
+            <em>&ldquo;computer, plan mode&rdquo;</em> dispatch slash commands
+            directly.
+          </p>
+          <div class="project-card-tags">
+            <span class="skill-tag"><i class="fab fa-js"></i> TypeScript</span>
+            <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
+            <span class="skill-tag"><i class="fas fa-microphone-lines"></i> Whisper</span>
+            <span class="skill-tag"><i class="fas fa-wand-magic-sparkles"></i> Wake&nbsp;words</span>
+          </div>
+          <div class="project-card-stats" aria-hidden="true"></div>
+        </a>
+
+        <a
           href="https://github.com/abinashstack/indmoney-watch"
           class="project-card"
           data-repo="abinashstack/indmoney-watch"
@@ -364,7 +482,6 @@
             <div class="project-card-title">
               <i class="fas fa-chart-line"></i>
               <span>indmoney-watch</span>
-              <span class="project-card-badge">NEW</span>
             </div>
             <i class="fab fa-github project-card-link"></i>
           </div>
@@ -380,30 +497,6 @@
             <span class="skill-tag"><i class="fas fa-bell"></i> SwiftBar</span>
           </div>
           <div class="project-card-stats" aria-hidden="true"></div>
-        </a>
-
-        <a
-          href="https://github.com/abinashstack?tab=repositories"
-          class="project-card"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <div class="project-card-head">
-            <div class="project-card-title">
-              <i class="fas fa-code-branch"></i>
-              <span>Open Source</span>
-            </div>
-            <i class="fab fa-github project-card-link"></i>
-          </div>
-          <p class="project-card-desc">
-            Community-driven contributions in Python and C++ during the UICEIT
-            Winter of Code, plus assorted tools and experiments on GitHub.
-          </p>
-          <div class="project-card-tags">
-            <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
-            <span class="skill-tag"><i class="fas fa-code"></i> C++</span>
-            <span class="skill-tag"><i class="fas fa-people-group"></i> Community</span>
-          </div>
         </a>
       </div>
 
