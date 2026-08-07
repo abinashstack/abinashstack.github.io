@@ -1182,9 +1182,14 @@ body {
   grid-template-columns: repeat(2, 1fr);
   gap: 1.2em;
   margin-top: 1.5em;
+  align-items: stretch;
 }
 
 .graph-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 12px;
@@ -1207,6 +1212,8 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5em;
+  align-self: flex-start;
+  width: 100%;
 }
 
 .graph-card h3 i {
