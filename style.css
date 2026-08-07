@@ -1225,6 +1225,10 @@ body {
   display: block;
 }
 
+
+.graph-card-wide {
+  grid-column: 1 / -1;
+}
 @media (max-width: 700px) {
   .project-graphs {
     grid-template-columns: 1fr;
