@@ -1175,3 +1175,58 @@ body {
     color-scheme: dark;
   }
 }
+
+/* ─── Project graphs section ─── */
+.project-graphs {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.2em;
+  margin-top: 1.5em;
+}
+
+.graph-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.2em;
+  box-shadow: 0 2px 8px var(--shadow);
+  overflow: hidden;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+
+.graph-card:hover {
+  box-shadow: 0 4px 20px var(--accent-shadow);
+  transform: translateY(-2px);
+}
+
+.graph-card h3 {
+  font-size: 0.85em;
+  font-weight: 600;
+  color: var(--text-muted);
+  margin-bottom: 0.8em;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+.graph-card h3 i {
+  color: var(--accent);
+  font-size: 0.9em;
+}
+
+.graph-card img,
+.graph-card picture img {
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+}
+
+.graph-card a {
+  display: block;
+}
+
+@media (max-width: 700px) {
+  .project-graphs {
+    grid-template-columns: 1fr;
+  }
+}
