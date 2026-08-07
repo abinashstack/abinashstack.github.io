@@ -1241,3 +1241,39 @@ body {
     grid-template-columns: 1fr;
   }
 }
+
+/* ─── Scroll progress bar ─── */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  width: 0;
+  background: linear-gradient(90deg, var(--accent), #10b981);
+  z-index: 9999;
+  transition: width 0.1s linear;
+  border-radius: 0 2px 2px 0;
+}
+
+/* ─── Typing cursor ─── */
+.cursor {
+  display: inline-block;
+  margin-left: 2px;
+  font-weight: 300;
+  animation: blink 1s step-end infinite;
+  color: var(--accent);
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+/* ─── 3D tilt smooth reset ─── */
+.project-card {
+  transition: box-shadow 0.2s, transform 0.15s ease-out, border-color 0.2s;
+}
+
+/* ─── Last-coded pill variant ─── */
+.pulse-dot-blue {
+  background: var(--accent);
+}

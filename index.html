@@ -21,6 +21,7 @@
     />
   </head>
   <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
     <button
       class="theme-toggle"
       onclick="toggleTheme()"
@@ -35,7 +36,7 @@
         <img src="photo.jpg" alt="Abinash Gogoi" class="avatar" />
         <h1>Abinash Gogoi</h1>
         <p class="tagline">
-          Software Developer at SAP Labs &middot; Bengaluru, India
+          <span id="typed-text"></span><span class="cursor">|</span>
         </p>
         <div class="links">
           <a href="https://github.com/abinashstack"
@@ -55,6 +56,10 @@
           <span class="pulse-dot"></span>
           Currently building:
           <a href="https://github.com/abinashstack/pashu-mitra" target="_blank" rel="noopener noreferrer" id="current-project">pashu-mitra</a>
+        </div>
+        <div class="currently-building last-coded-pill">
+          <span class="pulse-dot pulse-dot-blue"></span>
+          Last coded: <span id="last-coded">just now</span>
         </div>
         <div class="gh-graph">
           <img
@@ -777,6 +782,84 @@
             if (!repos.length || repos[0].fork) return;
             el.textContent = repos[0].name;
             el.href = repos[0].html_url;
+          })
+          .catch(function () {});
+      })();
+
+    <script>
+      // Typing tagline
+      (function () {
+        var phrases = [
+          "Software Developer at SAP Labs · Bengaluru",
+          "Builds AI agents that quietly work",
+          "Deadlifts 130 kg · Squats 120 kg",
+          "Ships at 2 AM for fun",
+          "NLP researcher turned product engineer",
+        ];
+        var el = document.getElementById("typed-text");
+        if (!el) return;
+        var pi = 0, ci = 0, deleting = false, pause = 0;
+        function tick() {
+          var phrase = phrases[pi];
+          if (pause > 0) { pause--; requestAnimationFrame(tick); return; }
+          if (!deleting) {
+            ci++;
+            el.textContent = phrase.slice(0, ci);
+            if (ci >= phrase.length) { deleting = true; pause = 90; }
+          } else {
+            ci--;
+            el.textContent = phrase.slice(0, ci);
+            if (ci <= 0) { deleting = false; pi = (pi + 1) % phrases.length; pause = 20; }
+          }
+          setTimeout(tick, deleting ? 30 : 60);
+        }
+        tick();
+      })();
+
+      // Scroll progress bar
+      (function () {
+        var bar = document.querySelector(".scroll-progress");
+        if (!bar) return;
+        function update() {
+          var h = document.documentElement.scrollHeight - window.innerHeight;
+          var pct = h > 0 ? (window.scrollY / h) * 100 : 0;
+          bar.style.width = pct + "%";
+        }
+        window.addEventListener("scroll", update, { passive: true });
+        update();
+      })();
+
+      // 3D tilt on project cards
+      (function () {
+        var cards = document.querySelectorAll(".project-card");
+        cards.forEach(function (card) {
+          card.addEventListener("mousemove", function (e) {
+            var rect = card.getBoundingClientRect();
+            var x = (e.clientX - rect.left) / rect.width - 0.5;
+            var y = (e.clientY - rect.top) / rect.height - 0.5;
+            card.style.transform =
+              "perspective(600px) rotateY(" + (x * 6) + "deg) rotateX(" + (-y * 6) + "deg) translateY(-2px)";
+          });
+          card.addEventListener("mouseleave", function () {
+            card.style.transform = "";
+          });
+        });
+      })();
+
+      // Last coded timestamp
+      (function () {
+        var el = document.getElementById("last-coded");
+        if (!el) return;
+        fetch("https://api.github.com/users/abinashstack/events/public?per_page=1")
+          .then(function (r) { return r.json(); })
+          .then(function (events) {
+            if (!events.length) return;
+            var d = new Date(events[0].created_at);
+            var diff = Math.round((Date.now() - d.getTime()) / 60000);
+            if (diff < 1) el.textContent = "just now";
+            else if (diff < 60) el.textContent = diff + " min ago";
+            else if (diff < 1440) el.textContent = Math.round(diff / 60) + " hr ago";
+            else el.textContent = Math.round(diff / 1440) + " day(s) ago";
           })
           .catch(function () {});
       })();
