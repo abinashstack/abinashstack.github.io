@@ -1098,3 +1098,80 @@ pre code {
 .links a:hover {
   text-decoration: none;
 }
+
+/* ─── Inter font ─── */
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+/* ─── Animated gradient hero background ─── */
+.header {
+  position: relative;
+  padding: 2.5em 1em;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--accent-bg), var(--bg), var(--accent-bg));
+  background-size: 400% 400%;
+  animation: hero-gradient 12s ease infinite;
+}
+
+@keyframes hero-gradient {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+/* ─── Currently building status ─── */
+.currently-building {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  margin-top: 1em;
+  padding: 0.4em 1em;
+  font-size: 0.85em;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--bg-card);
+}
+
+.currently-building a {
+  font-weight: 600;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+/* ─── GitHub contribution graph ─── */
+.gh-graph {
+  margin-top: 1.2em;
+  overflow-x: auto;
+  text-align: center;
+}
+
+.gh-graph img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  opacity: 0.85;
+  transition: opacity 0.3s;
+}
+
+.gh-graph img:hover {
+  opacity: 1;
+}
+
+/* ─── Favicon renders better with no white box ─── */
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}

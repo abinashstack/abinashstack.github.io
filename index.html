@@ -9,8 +9,12 @@
     <meta property="og:url" content="https://abinashstack.github.io" />
     <meta name="twitter:card" content="summary" />
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐾</text></svg>" />
     <title>Abinash Gogoi</title>
-    <link rel="stylesheet" href="style.css?v=2026-08-07-glow" />
+    <link rel="stylesheet" href="style.css?v=2026-08-07-v2" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
@@ -46,6 +50,18 @@
           <a href="https://leetcode.com/u/abinashstack"
             ><i class="fas fa-code"></i> LeetCode</a
           >
+        </div>
+        <div class="currently-building">
+          <span class="pulse-dot"></span>
+          Currently building:
+          <a href="https://github.com/abinashstack/pashu-mitra" target="_blank" rel="noopener noreferrer" id="current-project">pashu-mitra</a>
+        </div>
+        <div class="gh-graph">
+          <img
+            src="https://ghchart.rshah.org/4d9fff/abinashstack"
+            alt="GitHub contribution graph"
+            loading="lazy"
+          />
         </div>
       </div>
 
@@ -697,6 +713,20 @@
         stats.forEach(function (s) {
           obs.observe(s);
         });
+      })();
+
+      // Auto-update "Currently building" with most-recently-pushed repo
+      (function () {
+        var el = document.getElementById("current-project");
+        if (!el) return;
+        fetch("https://api.github.com/users/abinashstack/repos?sort=pushed&per_page=1&type=owner")
+          .then(function (r) { return r.json(); })
+          .then(function (repos) {
+            if (!repos.length || repos[0].fork) return;
+            el.textContent = repos[0].name;
+            el.href = repos[0].html_url;
+          })
+          .catch(function () {});
       })();
     </script>
   </body>
